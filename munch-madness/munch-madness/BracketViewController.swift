@@ -12,7 +12,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
 
 //    left swipe
     @IBOutlet weak var topName: UILabel!
-//  right swipe
+//    right swipe
     @IBOutlet weak var bottomName: UILabel!
     
     @IBOutlet weak var topImage: UIImageView!
@@ -26,6 +26,8 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var topCuisine: UILabel!
     
     @IBOutlet weak var bottomCuisine: UILabel!
+    
+    //add radius/distance and price
     
     override func viewDidLoad() {
         super.viewDidLoad()
