@@ -11,17 +11,48 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
     
     var ref: DatabaseReference!
-    var gamePin: NSString?
+    var gameCode: String?
+    
+    @IBOutlet weak var joinCodeField: UITextField!
+    
+    @IBAction func joinFieldChanged(_ sender: Any) {
+        gameCode = joinCodeField.text
+    }
+    
+    // testing how to add users to an array in the database
+    // basically creating a set of users for each group - not quite an array, but similar vibe https://stackoverflow.com/questions/39815117/add-an-item-to-a-list-in-firebase-database
+    @IBAction func joinGroupBtn(_ sender: Any) {
+        // I moved the contents of addUser() here to check if code exists, and if it does, perform segue
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.ref.child("groups").observe(.value, with: { (snapshot) in
+                if let code = self.gameCode {
+                    if snapshot.hasChild(code) {
+                        self.ref.child("groups").child(code).child("users").child("putUserNameHere").setValue(true)
+                        DispatchQueue.main.async {
+                            self.performSegue(withIdentifier: "toWaitingVC", sender: nil)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: "Group Code Not Found", message: "Please try again!", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { alert in }))
 
-
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    }
+                }
+            })
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.joinCodeField.delegate = self
         ref = Database.database().reference()
         watchGroupData()
-        addUser()
+//        addUser()
 //        addGroup()
 //        addGroup()
 
@@ -33,6 +64,7 @@ class ViewController: UIViewController {
 //          let postDict = snapshot.value as? [String : AnyObject] ?? [:]
 //          // ...
 //        })
+        //this prints what is in the database
         ref.observe(.value, with: {
             snapshot in
             
@@ -40,34 +72,24 @@ class ViewController: UIViewController {
         })
     }
     
-    func addGroup(){
-        gamePin = generatePin(len: 6)
-        self.ref.child("groups").child(gamePin! as String).setValue(["name": "test"])
-
-        
-    }
-    
-    func addUser(){
-        // testing how to add users to an array in the database
-       // basically creating a set of users for each group - not quite an array, but similar vibe https://stackoverflow.com/questions/39815117/add-an-item-to-a-list-in-firebase-database
-        self.ref.child("groups").child("123456").child("users").child("putUserNameHere").setValue(true)
-
-    }
-    
-    // based on solution 1 from https://izziswift.com/short-random-unique-alphanumeric-keys-similar-to-youtube-ids-in-swift/
-    // generates a random alphanumeric Pin for the game of length len
-    func generatePin(len: Int) -> NSString{
-    
-        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        let randomString : NSMutableString = NSMutableString(capacity: len)
-        for _ in 1...len{
-            let length = UInt32 (letters.length)
-            let rand = arc4random_uniform(length)
-            randomString.appendFormat("%C", letters.character(at: Int(rand)))
-        }
-        return randomString
-        
-    }
+    // we should move this to somewhere else--maybe WaitingViewController?
+//    func addUser() -> Bool {
+//        // testing how to add users to an array in the database
+//       // basically creating a set of users for each group - not quite an array, but similar vibe https://stackoverflow.com/questions/39815117/add-an-item-to-a-list-in-firebase-database
+//
+//        var hasChild = false
+//        self.ref.child("groups").observe(.value, with: { (snapshot) in
+//            if let code = self.gameCode {
+//                print("code \(code)")
+//                if snapshot.hasChild(code) {
+//                    hasChild = true
+//                    self.ref.child("groups").child(code).child("users").child("putUserNameHere").setValue(true)
+//                }
+//            }
+//
+//        })
+//        return hasChild
+//    }
     
 //    from https://firebase.google.com/docs/database/ios/read-and-write
     // Basically takes current state and returns new desired state, said helpful for incrementing counts, especially when multiple users may be voting/tapping at once
