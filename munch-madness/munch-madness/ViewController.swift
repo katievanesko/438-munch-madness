@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     
     var ref: DatabaseReference!
     var gamePin: NSString?
+    var userName: String = ""
 
 
     override func viewDidLoad() {
@@ -22,7 +23,7 @@ class ViewController: UIViewController {
         ref = Database.database().reference()
         watchGroupData()
         addUser()
-        voteTransactions()
+        voteTransactions(groupID: gamePin! as String)
 //        addGroup()
 //        addGroup()
 
@@ -72,28 +73,26 @@ class ViewController: UIViewController {
     
 //    from https://firebase.google.com/docs/database/ios/read-and-write
     // Basically takes current state and returns new desired state, said helpful for incrementing counts, especially when multiple users may be voting/tapping at once
-    func voteTransactions(){
-        let voteRef = ref.child("groups").child("123456")
-        print("IN VOTE TRANSACTIONS AFTER VOTEREF")
+    func voteTransactions(groupID: String){
+        let voteRef = ref.child("groups").child(groupID)
         voteRef.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
           if var post = currentData.value as? [String : AnyObject]
 //          , let uid = Auth.auth().currentUser?.uid
           {
-            print("IN VOTE TRANSACTIONS IF STATEMENT")
-            var stars: Dictionary<String, Bool>
-            stars = post["stars"] as? [String : Bool] ?? [:]
-            var starCount = post["starCount"] as? Int ?? 0
-            if let _ = stars["user1"] {
+            var votes: Dictionary<String, Bool>
+            votes = post["votes"] as? [String : Bool] ?? [:]
+            var voteCount = post["voteCount"] as? Int ?? 0
+            if let _ = votes[self.userName] {
               // Unstar the post and remove self from stars
-              starCount -= 1
-              stars.removeValue(forKey: "user1")
+                voteCount -= 1
+                votes.removeValue(forKey: self.userName)
             } else {
               // Star the post and add self to stars
-              starCount += 1
-              stars["user1"] = true
+              voteCount += 1
+              votes[self.userName] = true
             }
-            post["starCount"] = starCount as AnyObject?
-            post["stars"] = stars as AnyObject?
+            post["voteCount"] = voteCount as AnyObject?
+            post["votes"] = votes as AnyObject?
 
             // Set value and report transaction success
             currentData.value = post
