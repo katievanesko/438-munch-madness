@@ -27,7 +27,7 @@ class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPicke
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        cuisineData = ["Any","American","Breakfast","Burgers", "Chinese","Italien", "Japanese","Korean" ,"Mexican","Pizza","Sandwhiches","Seafood"]
+        cuisineData = ["Any","American","Breakfast","Burgers", "Chinese","Italian", "Japanese","Korean" ,"Mexican","Pizza","Sandwiches","Seafood"]
         radiusData = ["Any", "1 mile","5 miles","10 miles","15 miles"]
 
         cuisinePicker.dataSource = self
