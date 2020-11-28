@@ -48,6 +48,23 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         self.view.addGestureRecognizer(leftSwipe)
         
         // fillInRestaurants()
+        
+        
+        let seconds = 5.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            // Check round number
+            let roundNum = 0 //set to appropriate value
+            if roundNum <= 5 {
+                // Create new BracketViewController
+                
+                // Get new restaurant info
+                
+            }
+            else {
+                // Move to WinnerVC
+                
+            }
+        }
     }
     
     @objc func completeSwipe(swipe: UISwipeGestureRecognizer) {
