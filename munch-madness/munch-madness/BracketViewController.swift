@@ -56,13 +56,23 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
             let roundNum = 0 //set to appropriate value
             if roundNum <= 5 {
                 // Create new BracketViewController
-                
-                // Get new restaurant info
-                
+                let newBracketVC = BracketViewController()
+                // Set attributes or wait to fill in next viewDidLoad()
+                navigationController?.pushViewController(newBracketVC, animated: false)
             }
             else {
                 // Move to WinnerVC
+                let winnerVC = WinnerViewController()
+                //set all attributes for VC from API
+                winnerVC.image = UIImage()
+                winnerVC.name.text = ""
+                winnerVC.cuisine.text = ""
+                winnerVC.rating.text = ""
+                winnerVC.price.text = ""
+                winnerVC.address.text = ""
                 
+                self.view.pushViewController(winnerVC,
+                animated: true)
             }
         }
     }

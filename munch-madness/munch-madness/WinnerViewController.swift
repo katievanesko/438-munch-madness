@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 class WinnerViewController: UIViewController {
     
@@ -30,20 +31,36 @@ class WinnerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //Load API info into labels
         
         // Do any additional setup after loading the view.
     }
     
     
-    
     @IBAction func callRestaurant(_ sender: Any) {
+        // Get rest. # from API
+        let rawNum = "314NumberFromAPI"
+        // Remove "+1" from num
+        rawNum.remove(at: 0)
+        rawNum.remove(at: 0)
         
+        guard let number = URL(string: "tel://" + rawNum) else { return }
+        UIApplication.shared.open(number)
     }
     
+    
     @IBAction func visitWebsite(_ sender: Any) {
+        // Get rest. website from API
+        guard let url = URL(string: "URL FROM API") else {
+            print("Could not access website url")
+            return
+        }
+        // Create new VC with webview
+        let websiteVC = WebViewController()
+        websiteVC.url = url
         
+        // Segue to WebsiteVC
+        navigationController?.pushViewController(websiteVC,
+        animated: true)
     }
     
 }
