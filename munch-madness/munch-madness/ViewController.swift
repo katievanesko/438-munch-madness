@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
+import CoreData
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -30,26 +31,44 @@ class ViewController: UIViewController, UITextFieldDelegate {
     // basically creating a set of users for each group - not quite an array, but similar vibe https://stackoverflow.com/questions/39815117/add-an-item-to-a-list-in-firebase-database
     @IBAction func joinGroupBtn(_ sender: Any) {
         // I moved the contents of addUser() here to check if code exists, and if it does, perform segue
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.ref.child("groups").observe(.value, with: { (snapshot) in
+//        DispatchQueue.global(qos: .userInitiated).async {
+            self.ref.child("groups").observeSingleEvent(of: .value, with: { (snapshot) in
                 if let code = self.gameCode {
                     if snapshot.hasChild(code) {
-//                       Going to move this code to Waiting View Controller so that when alter username, adds to database self.ref.child("groups").child(code).child("users").child("putUserNameHere").setValue(true)
-                        DispatchQueue.main.async {
-                            // should pass the game code to the waiting VC right?
-                            self.performSegue(withIdentifier: "toWaitingVC", sender: nil)
+                        self.ref.child("groups").child(code).child("users").child("putUserNameHere").setValue(true)
+
+                        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                            return
                         }
+
+                        let managedContent = appDelegate.persistentContainer.viewContext
+
+                        if let entity = NSEntityDescription.entity(forEntityName: "User", in: managedContent) {
+                            let currentUser = NSManagedObject(entity: entity, insertInto: managedContent)
+                            currentUser.setValue("putUserNameHere", forKey: "name")
+                            currentUser.setValue(code, forKey: "code")
+
+                            do {
+                                try managedContent.save()
+                            } catch {
+                                print("Could not save")
+                            }
+                        }
+//                        DispatchQueue.main.async {
+                            print("i'm seguing")
+//                            self.performSegue(withIdentifier: "toWaitingVC", sender: nil)
+//                        }
                     } else {
-                        DispatchQueue.main.async {
+//                        DispatchQueue.main.async {
                             let alert = UIAlertController(title: "Group Code Not Found", message: "Please try again!", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { alert in }))
 
                             self.present(alert, animated: true, completion: nil)
-                        }
+//                        }
                     }
                 }
             })
-        }
+//    }
     }
     
     override func viewDidLoad() {
@@ -61,9 +80,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //        voteTransactions(groupID: gameCode!)
         // addUser()
 //        voteTransactions()
-//        addGroup()
-//        addGroup()
-
     }
 //      commented part from https://firebase.google.com/docs/database/ios/read-and-write
     // other part from Lecture 9 video 32:41

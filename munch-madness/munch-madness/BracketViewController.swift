@@ -48,6 +48,35 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         self.view.addGestureRecognizer(leftSwipe)
         
         // fillInRestaurants()
+        
+        
+        let seconds = 2.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            // Check round number
+            let numChoices = 10 //set to appropriate value
+            if numChoices > 1 {
+                // Create new BracketViewController
+                let newBracketVC = self.storyboard?.instantiateViewController(withIdentifier: "BracketViewController") as! BracketViewController
+                // Set attributes or wait to fill in next viewDidLoad()
+                print("next round!")
+                self.present(newBracketVC, animated: false, completion: nil)
+                
+            }
+            else {
+                // Move to WinnerVC
+                print("winner!")
+                let winnerVC = self.storyboard?.instantiateViewController(withIdentifier: "WinnerViewController") as! WinnerViewController
+                //set all attributes for VC from API
+//                winnerVC.image.image =  UIImage(systemName: "pencil")// Change to not that
+//                winnerVC.name.text = ""
+//                winnerVC.cuisine.text = ""
+//                winnerVC.rating.text = ""
+//                winnerVC.price.text = ""
+//                winnerVC.address.text = ""
+                
+                self.present(winnerVC, animated: true, completion: nil)
+            }
+        }
     }
     
     @objc func completeSwipe(swipe: UISwipeGestureRecognizer) {

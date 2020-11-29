@@ -12,7 +12,7 @@ import Foundation
 
 extension ViewController {
     
-    func retrieveVenues(location : Sting, category: String, limit : Int, sortBy: String, price: String, completionHandler: @escaping ([Restaurant]?, Error?) -> Void){
+    func retrieveVenues(location : String, category: String, limit : Int, sortBy: String, price: String, completionHandler: @escaping ([Restaurant]?, Error?) -> Void){
         
         
         //Retrieve Restaurants from Yelp API
@@ -24,7 +24,7 @@ extension ViewController {
         let url = URL(string : baseURL)
         
         //create request
-        var request = URLrequest(url: url!)
+        var request = URLRequest(url: url!)
         request.setValue("Bearer\(apikey)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
@@ -43,7 +43,7 @@ extension ViewController {
                 //Businesses
                 guard let businesses = response.value(forKey: "businesses") as? [NSDictionary] else {return}
                 
-                var restaurantList: [restaurant] = []
+                var restaurantList: [Restaurant] = []
                 
                 //accessing venue information
                 for business in businesses {

@@ -1,0 +1,6 @@
+framework module Pods_munch_madness {
+  umbrella header "Pods-munch-madness-umbrella.h"
+
+  export *
+  module * { export * }
+}
