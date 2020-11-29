@@ -77,7 +77,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         ref = Database.database().reference()
         watchGroupData()
 //        addUser()
-        voteTransactions(groupID: gameCode!)
+//        voteTransactions(groupID: gameCode!)
         // addUser()
 //        voteTransactions()
     }

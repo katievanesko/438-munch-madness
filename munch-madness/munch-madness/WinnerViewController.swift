@@ -33,15 +33,15 @@ class WinnerViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        print("we have a winner")
     }
     
     
     @IBAction func callRestaurant(_ sender: Any) {
         // Get rest. # from API
-        let rawNum = "314NumberFromAPI"
+        var rawNum = "+1314NumberFromAPI"
+        
         // Remove "+1" from num
-        rawNum.remove(at: 0)
-        rawNum.remove(at: 0)
         
         guard let number = URL(string: "tel://" + rawNum) else { return }
         UIApplication.shared.open(number)
@@ -50,13 +50,13 @@ class WinnerViewController: UIViewController {
     
     @IBAction func visitWebsite(_ sender: Any) {
         // Get rest. website from API
-        guard let url = URL(string: "URL FROM API") else {
-            print("Could not access website url")
-            return
-        }
+//        guard let url = URL(string: "URL FROM API") else {
+//            print("Could not access website url")
+//            return
+//        }
         // Create new VC with webview
         let websiteVC = WebViewController()
-        websiteVC.url = url
+        websiteVC.url = "URL FEOM API"
         
         // Segue to WebsiteVC
         navigationController?.pushViewController(websiteVC,
