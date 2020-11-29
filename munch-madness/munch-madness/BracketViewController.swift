@@ -50,13 +50,13 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         // fillInRestaurants()
         
         
-        let seconds = 5.0
+        let seconds = 2.0
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             // Check round number
-            let numChoices = 1 //set to appropriate value
+            let numChoices = 10 //set to appropriate value
             if numChoices > 1 {
                 // Create new BracketViewController
-                let newBracketVC = BracketViewController()
+                let newBracketVC = self.storyboard?.instantiateViewController(withIdentifier: "BracketViewController") as! BracketViewController
                 // Set attributes or wait to fill in next viewDidLoad()
                 print("next round!")
                 self.present(newBracketVC, animated: false, completion: nil)
@@ -65,7 +65,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
             else {
                 // Move to WinnerVC
                 print("winner!")
-                let winnerVC = WinnerViewController()
+                let winnerVC = self.storyboard?.instantiateViewController(withIdentifier: "WinnerViewController") as! WinnerViewController
                 //set all attributes for VC from API
 //                winnerVC.image.image =  UIImage(systemName: "pencil")// Change to not that
 //                winnerVC.name.text = ""
@@ -73,6 +73,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
 //                winnerVC.rating.text = ""
 //                winnerVC.price.text = ""
 //                winnerVC.address.text = ""
+                
                 self.present(winnerVC, animated: true, completion: nil)
             }
         }
