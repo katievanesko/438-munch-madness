@@ -15,6 +15,8 @@
 		29193BD82563209D00D2E44A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29193BD62563209D00D2E44A /* LaunchScreen.storyboard */; };
 		29193BE025633ECB00D2E44A /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29193BDF25633ECB00D2E44A /* PreferencesViewController.swift */; };
 		29193BE3256355AA00D2E44A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29193BE1256355AA00D2E44A /* Main.storyboard */; };
+		2968C7B9257313FF0009FEA4 /* WinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2968C7B8257313FF0009FEA4 /* WinnerViewController.swift */; };
+		2968C7BB25731A300009FEA4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2968C7BA25731A300009FEA4 /* WebViewController.swift */; };
 		789B568A256A262D00BDB9DA /* BracketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B5689256A262D00BDB9DA /* BracketViewController.swift */; };
 		789B568C256F1FFF00BDB9DA /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B568B256F1FFF00BDB9DA /* GroupViewController.swift */; };
 		789B568E256F2CF000BDB9DA /* WaitingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B568D256F2CF000BDB9DA /* WaitingViewController.swift */; };
@@ -33,6 +35,8 @@
 		29193BD92563209D00D2E44A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29193BDF25633ECB00D2E44A /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		29193BE2256355AA00D2E44A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2968C7B8257313FF0009FEA4 /* WinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinnerViewController.swift; sourceTree = "<group>"; };
+		2968C7BA25731A300009FEA4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		4059C966F3FD4B184DA773AE /* Pods_munch_madness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_munch_madness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		789B5689256A262D00BDB9DA /* BracketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketViewController.swift; sourceTree = "<group>"; };
 		789B568B256F1FFF00BDB9DA /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +93,8 @@
 				29193BCA2563209C00D2E44A /* SceneDelegate.swift */,
 				29193BCC2563209C00D2E44A /* ViewController.swift */,
 				29193BE1256355AA00D2E44A /* Main.storyboard */,
+				2968C7BA25731A300009FEA4 /* WebViewController.swift */,
+				2968C7B8257313FF0009FEA4 /* WinnerViewController.swift */,
 				29193BDF25633ECB00D2E44A /* PreferencesViewController.swift */,
 				29193BD42563209D00D2E44A /* Assets.xcassets */,
 				29193BD62563209D00D2E44A /* LaunchScreen.storyboard */,
@@ -227,6 +233,8 @@
 			files = (
 				789B568E256F2CF000BDB9DA /* WaitingViewController.swift in Sources */,
 				29193BE025633ECB00D2E44A /* PreferencesViewController.swift in Sources */,
+				2968C7B9257313FF0009FEA4 /* WinnerViewController.swift in Sources */,
+				2968C7BB25731A300009FEA4 /* WebViewController.swift in Sources */,
 				29193BCD2563209C00D2E44A /* ViewController.swift in Sources */,
 				29193BC92563209C00D2E44A /* AppDelegate.swift in Sources */,
 				29193BCB2563209C00D2E44A /* SceneDelegate.swift in Sources */,

@@ -21,7 +21,11 @@ class WaitingViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func nameFieldChanged(_ sender: Any) {
         if let newName = nameField.text {
+            //probably will need to check if the user already has a username and update the field if they do, else create a new entry and update
+            // self.ref.child("groups").child(code).child("users").child(name).setValue(true)
+
             name = newName
+            
         }
     }
     
@@ -31,6 +35,8 @@ class WaitingViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference()
+
         // Do any additional setup after loading the view.
         ref = Database.database().reference()
         nameField.delegate = self
