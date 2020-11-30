@@ -665,7 +665,7 @@
                                     <constraint firstItem="6Yv-fm-KR0" firstAttribute="leading" secondItem="ZcR-bB-7am" secondAttribute="leading" constant="36" id="lEi-zg-XSk"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="GlP-3F-yM4">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="GlP-3F-yM4" userLabel="Name Stack">
                                 <rect key="frame" x="32" y="600" width="311" height="79.333333333333371"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7O7-mj-Rhj">
@@ -685,9 +685,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
-                                                    <action selector="nameFieldChanged:" destination="lBO-rY-B9I" eventType="editingDidEnd" id="UNz-Xt-OW1"/>
                                                     <action selector="nameFieldChanged:" destination="lBO-rY-B9I" eventType="editingChanged" id="wIV-AN-POi"/>
-                                                    <action selector="nameFieldDone:" destination="lBO-rY-B9I" eventType="editingDidEnd" id="BMr-cf-PDg"/>
                                                 </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hp3-aR-9rk">
@@ -720,6 +718,7 @@
                     <navigationItem key="navigationItem" id="gvI-vp-qZP"/>
                     <connections>
                         <outlet property="nameField" destination="1R0-uA-C0A" id="zLi-l1-3sw"/>
+                        <outlet property="nameStack" destination="GlP-3F-yM4" id="7N1-RI-pO1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u80-iN-WfK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

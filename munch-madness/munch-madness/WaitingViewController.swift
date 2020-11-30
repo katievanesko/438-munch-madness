@@ -17,6 +17,8 @@ class WaitingViewController: UIViewController, UITextFieldDelegate {
     var name: String?
     var ref: DatabaseReference!
     
+    @IBOutlet weak var nameStack: UIStackView!
+    
     @IBOutlet weak var nameField: UITextField!
     
     @IBAction func nameFieldChanged(_ sender: Any) {
@@ -46,7 +48,7 @@ class WaitingViewController: UIViewController, UITextFieldDelegate {
         var answers:Array<String> = []
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return answers
+            return []
         }
 
         let managedContent = appDelegate.persistentContainer.viewContext
@@ -54,21 +56,19 @@ class WaitingViewController: UIViewController, UITextFieldDelegate {
 
         do {
             let results = try managedContent.fetch(fetchRequest)
-            answers.append(results[0].value(forKey: "name") as! String)
-            answers.append(results[0].value(forKey: "code") as! String)
+            answers.append(results[results.count - 1].value(forKey: "name") as! String)
+            answers.append(results[results.count - 1].value(forKey: "code") as! String)
             return answers
         } catch {
             print("Could not fetch")
-            return answers
+            return []
         }
     }
     
-    //this all works
     func addNewName() {
         let results = getNameAndCode()
         let oldName = results[0]
         let code = results[1]
-        print("old name \(oldName)")
         
         if results.count == 2 {
             if let newName = self.name {
@@ -85,19 +85,25 @@ class WaitingViewController: UIViewController, UITextFieldDelegate {
                         }
 
                         let managedContent = appDelegate.persistentContainer.viewContext
-
-                        if let entity = NSEntityDescription.entity(forEntityName: "User", in: managedContent) {
-                            let currentUser = NSManagedObject(entity: entity, insertInto: managedContent)
-                            currentUser.setValue(newName, forKey: "name")
-
-                            do {
-                                try managedContent.save()
-                            } catch {
-                                print("Could not save")
+                        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "User")
+                        
+                        fetchRequest.predicate = NSPredicate(format: "code = %@", code)
+                
+                        do {
+                            let results = try managedContent.fetch(fetchRequest)
+                            if results.count > 0 {
+                                let object = results[0]
+                                object.setValue(name, forKey: "name")
+                                do {
+                                    try managedContent.save()
+                                    nameStack.removeFromSuperview()
+                                } catch {
+                                    print("Could not save")
+                                }
                             }
+                        } catch {
+                            print("Could not fetch")
                         }
-//                    }
-//                }
             }
         }
     }

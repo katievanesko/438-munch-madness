@@ -19,7 +19,7 @@ class WebViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         let webView = WKWebView(frame: view.frame)
-        webView.load(NSURLRequest(url: NSURL(string: future_url)! as URL) as URLRequest)
+//        webView.load(NSURLRequest(url: NSURL(string: future_url)! as URL) as URLRequest)
         
     }
     

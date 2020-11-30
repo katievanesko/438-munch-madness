@@ -50,12 +50,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
                             do {
                                 try managedContent.save()
+                                print("saved")
                             } catch {
                                 print("Could not save")
                             }
                         }
 //                        DispatchQueue.main.async {
-                            print("i'm seguing")
+//                            print("i'm seguing")
 //                            self.performSegue(withIdentifier: "toWaitingVC", sender: nil)
 //                        }
                     } else {
@@ -77,9 +78,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         ref = Database.database().reference()
         watchGroupData()
 //        addUser()
-        voteTransactions(groupID: gameCode!)
+//        voteTransactions(groupID: gameCode!)
         // addUser()
-//        voteTransactions()
     }
 //      commented part from https://firebase.google.com/docs/database/ios/read-and-write
     // other part from Lecture 9 video 32:41

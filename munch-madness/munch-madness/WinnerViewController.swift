@@ -40,8 +40,8 @@ class WinnerViewController: UIViewController {
         // Get rest. # from API
         let rawNum = "314NumberFromAPI"
         // Remove "+1" from num
-        rawNum.remove(at: 0)
-        rawNum.remove(at: 0)
+//        rawNum.remove(at: 0)
+//        rawNum.remove(at: 0)
         
         guard let number = URL(string: "tel://" + rawNum) else { return }
         UIApplication.shared.open(number)
