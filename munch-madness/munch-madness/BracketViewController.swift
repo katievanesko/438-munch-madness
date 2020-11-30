@@ -50,31 +50,33 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         // fillInRestaurants()
         
         
-//        let seconds = 5.0
-//        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-//            // Check round number
-//            let roundNum = 0 //set to appropriate value
-//            if roundNum <= 5 {
-//                // Create new BracketViewController
-//                let newBracketVC = BracketViewController()
-//                // Set attributes or wait to fill in next viewDidLoad()
-//                navigationController?.pushViewController(newBracketVC, animated: false)
-//            }
-//            else {
-//                // Move to WinnerVC
-//                let winnerVC = WinnerViewController()
-//                //set all attributes for VC from API
-//                winnerVC.image = UIImage()
+        let seconds = 2.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            // Check round number
+            let numChoices = 10 //set to appropriate value
+            if numChoices > 1 {
+                // Create new BracketViewController
+                let newBracketVC = self.storyboard?.instantiateViewController(withIdentifier: "BracketViewController") as! BracketViewController
+                // Set attributes or wait to fill in next viewDidLoad()
+                print("next round!")
+                self.present(newBracketVC, animated: false, completion: nil)
+                
+            }
+            else {
+                // Move to WinnerVC
+                print("winner!")
+                let winnerVC = self.storyboard?.instantiateViewController(withIdentifier: "WinnerViewController") as! WinnerViewController
+                //set all attributes for VC from API
+//                winnerVC.image.image =  UIImage(systemName: "pencil")// Change to not that
 //                winnerVC.name.text = ""
 //                winnerVC.cuisine.text = ""
 //                winnerVC.rating.text = ""
 //                winnerVC.price.text = ""
 //                winnerVC.address.text = ""
-//
-//                self.view.pushViewController(winnerVC,
-//                animated: true)
-//            }
-//        }
+                
+                self.present(winnerVC, animated: true, completion: nil)
+            }
+        }
     }
     
     @objc func completeSwipe(swipe: UISwipeGestureRecognizer) {

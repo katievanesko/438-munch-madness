@@ -17,13 +17,13 @@
 		29193BE3256355AA00D2E44A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29193BE1256355AA00D2E44A /* Main.storyboard */; };
 		2968C7B9257313FF0009FEA4 /* WinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2968C7B8257313FF0009FEA4 /* WinnerViewController.swift */; };
 		2968C7BB25731A300009FEA4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2968C7BA25731A300009FEA4 /* WebViewController.swift */; };
+		49F6975859379895AFC9CEA7 /* Pods_munch_madness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FBAD4542EDB9BCEF56DBB79 /* Pods_munch_madness.framework */; };
 		789B568A256A262D00BDB9DA /* BracketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B5689256A262D00BDB9DA /* BracketViewController.swift */; };
 		789B568C256F1FFF00BDB9DA /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B568B256F1FFF00BDB9DA /* GroupViewController.swift */; };
 		789B568E256F2CF000BDB9DA /* WaitingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B568D256F2CF000BDB9DA /* WaitingViewController.swift */; };
 		789B56942573251D00BDB9DA /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B56912573251D00BDB9DA /* Restaurant.swift */; };
 		789B56952573251D00BDB9DA /* FetchRestaurantData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B56922573251D00BDB9DA /* FetchRestaurantData.swift */; };
 		7F8452332565F45100A9CAAA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F8452322565F45100A9CAAA /* GoogleService-Info.plist */; };
-		C8EA0704109924620D3A6B7B /* Pods_munch_madness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4059C966F3FD4B184DA773AE /* Pods_munch_madness.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,15 +39,15 @@
 		29193BE2256355AA00D2E44A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2968C7B8257313FF0009FEA4 /* WinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinnerViewController.swift; sourceTree = "<group>"; };
 		2968C7BA25731A300009FEA4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		4059C966F3FD4B184DA773AE /* Pods_munch_madness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_munch_madness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		41640417761B205B95EBE317 /* Pods-munch-madness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-munch-madness.debug.xcconfig"; path = "Target Support Files/Pods-munch-madness/Pods-munch-madness.debug.xcconfig"; sourceTree = "<group>"; };
+		755D46884F8EE62063A18A07 /* Pods-munch-madness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-munch-madness.release.xcconfig"; path = "Target Support Files/Pods-munch-madness/Pods-munch-madness.release.xcconfig"; sourceTree = "<group>"; };
 		789B5689256A262D00BDB9DA /* BracketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketViewController.swift; sourceTree = "<group>"; };
 		789B568B256F1FFF00BDB9DA /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
 		789B568D256F2CF000BDB9DA /* WaitingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingViewController.swift; sourceTree = "<group>"; };
 		789B56912573251D00BDB9DA /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		789B56922573251D00BDB9DA /* FetchRestaurantData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchRestaurantData.swift; sourceTree = "<group>"; };
 		7F8452322565F45100A9CAAA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		CCFBE136EB5923D2B33F6920 /* Pods-munch-madness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-munch-madness.release.xcconfig"; path = "Target Support Files/Pods-munch-madness/Pods-munch-madness.release.xcconfig"; sourceTree = "<group>"; };
-		F6F85BDB0366A99C8FC74E03 /* Pods-munch-madness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-munch-madness.debug.xcconfig"; path = "Target Support Files/Pods-munch-madness/Pods-munch-madness.debug.xcconfig"; sourceTree = "<group>"; };
+		9FBAD4542EDB9BCEF56DBB79 /* Pods_munch_madness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_munch_madness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8EA0704109924620D3A6B7B /* Pods_munch_madness.framework in Frameworks */,
+				49F6975859379895AFC9CEA7 /* Pods_munch_madness.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,8 +65,8 @@
 		1C4A68F8FC7B560E0DCD664D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F6F85BDB0366A99C8FC74E03 /* Pods-munch-madness.debug.xcconfig */,
-				CCFBE136EB5923D2B33F6920 /* Pods-munch-madness.release.xcconfig */,
+				41640417761B205B95EBE317 /* Pods-munch-madness.debug.xcconfig */,
+				755D46884F8EE62063A18A07 /* Pods-munch-madness.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -77,7 +77,7 @@
 				29193BC72563209C00D2E44A /* munch-madness */,
 				29193BC62563209C00D2E44A /* Products */,
 				1C4A68F8FC7B560E0DCD664D /* Pods */,
-				EC94724F91FB5AC3EF8F255E /* Frameworks */,
+				C5CCC89F403A70B794C59A4E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,10 +113,10 @@
 			path = "munch-madness";
 			sourceTree = "<group>";
 		};
-		EC94724F91FB5AC3EF8F255E /* Frameworks */ = {
+		C5CCC89F403A70B794C59A4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4059C966F3FD4B184DA773AE /* Pods_munch_madness.framework */,
+				9FBAD4542EDB9BCEF56DBB79 /* Pods_munch_madness.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -128,11 +128,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 29193BDC2563209D00D2E44A /* Build configuration list for PBXNativeTarget "munch-madness" */;
 			buildPhases = (
-				3D7DF0D1CF3AAC2F1EE2AFB9 /* [CP] Check Pods Manifest.lock */,
+				D0151526CDBFE8188F93208D /* [CP] Check Pods Manifest.lock */,
 				29193BC12563209C00D2E44A /* Sources */,
 				29193BC22563209C00D2E44A /* Frameworks */,
 				29193BC32563209C00D2E44A /* Resources */,
-				768BB624CF00FFCCB3CBC0F5 /* [CP] Embed Pods Frameworks */,
+				A6804AC257E1B5FF10172FFE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -191,7 +191,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3D7DF0D1CF3AAC2F1EE2AFB9 /* [CP] Check Pods Manifest.lock */ = {
+		A6804AC257E1B5FF10172FFE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-munch-madness/Pods-munch-madness-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-munch-madness/Pods-munch-madness-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-munch-madness/Pods-munch-madness-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D0151526CDBFE8188F93208D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -211,23 +228,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		768BB624CF00FFCCB3CBC0F5 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-munch-madness/Pods-munch-madness-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-munch-madness/Pods-munch-madness-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-munch-madness/Pods-munch-madness-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -390,7 +390,7 @@
 		};
 		29193BDD2563209D00D2E44A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6F85BDB0366A99C8FC74E03 /* Pods-munch-madness.debug.xcconfig */;
+			baseConfigurationReference = 41640417761B205B95EBE317 /* Pods-munch-madness.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -409,7 +409,7 @@
 		};
 		29193BDE2563209D00D2E44A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CCFBE136EB5923D2B33F6920 /* Pods-munch-madness.release.xcconfig */;
+			baseConfigurationReference = 755D46884F8EE62063A18A07 /* Pods-munch-madness.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
