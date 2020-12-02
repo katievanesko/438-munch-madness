@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>489589496736-b98rp5vgo6it1l6lbjgvjocihogag6f1.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.489589496736-b98rp5vgo6it1l6lbjgvjocihogag6f1</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA_FRm4W67uzOcBLC1TMkRQ0Yhrt8qzJzQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>489589496736</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>katie.munch-madness</string>
+	<key>PROJECT_ID</key>
+	<string>munch-madness-438</string>
+	<key>STORAGE_BUCKET</key>
+	<string>munch-madness-438.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:489589496736:ios:5ff5c8e26dba4576b9e2c5</string>
+	<key>DATABASE_URL</key>
+	<string>https://munch-madness-438.firebaseio.com</string>
+</dict>
+</plist>
