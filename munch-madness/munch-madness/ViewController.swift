@@ -77,6 +77,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.joinCodeField.delegate = self
         ref = Database.database().reference()
         watchGroupData()
+        let frd = FetchRestaurantData()
+        frd.retrieveVenues(location: "NYC", category: "pizza", limit: 2, sortBy: "1", price: "2")
 //        addUser()
 //        voteTransactions(groupID: gameCode!)
         // addUser()
