@@ -24,14 +24,15 @@ class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPicke
     var radiusData:[String] = []
   
     
-    //
-    var venues: [Restaurant] = []
+    // below was throwing errors but I think it is on the right track for taking in the user preferences
     
-    func retrieveVenues(location : location, category: cuisinePicker, limit : 20, sortBy: "distance", price: pricePicker, radius: radiusPicker) {(response, error); in
-        if let response = response {
-            self.venues = response
-        }
-    }
+//    var venues: [Restaurant] = []
+//
+//    func retrieveVenues(location : location, category: cuisinePicker, limit : 20, sortBy: "distance", price: pricePicker, radius: radiusPicker) {(response, error); in
+//        if let response = response {
+//            self.venues = response
+//        }
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
