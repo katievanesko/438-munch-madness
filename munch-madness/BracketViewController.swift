@@ -50,14 +50,18 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         // fillInRestaurants()
         var venues: [Restaurant]
         
-  
-      //  func tableView(
-//        topName.text = venues[indexPath.row].name
-//        bottomName.text = venues[indexPath.row].name
-//        topRating.text = venues[indexPath.row].rating ?? 0.0)
-//        topImage = venues[indexPath.row].image_url
-//        bottomImage = venues[indexPath.row].image_url
-//
+      //think we need to setup a UIView in storyboard with custom cells for top and bottom restaurants that are up against eachother
+        
+//        func tableView( tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeuReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomCell
+        
+//        cell.topName.text = venues[indexPath.row].name
+//        cell.bottomName.text = venues[indexPath.row].name
+//        cell.topRating.text = venues[indexPath.row].rating ?? 0.0)
+//        cell.topImage = venues[indexPath.row].image_url
+//        cell.bottomImage = venues[indexPath.row].image_url
+//        return cell
+//        }
         
         
         let seconds = 2.0
