@@ -1,0 +1,466 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		29193BC92563209C00D2E44A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29193BC82563209C00D2E44A /* AppDelegate.swift */; };
+		29193BCB2563209C00D2E44A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29193BCA2563209C00D2E44A /* SceneDelegate.swift */; };
+		29193BCD2563209C00D2E44A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29193BCC2563209C00D2E44A /* ViewController.swift */; };
+		29193BD32563209C00D2E44A /* munch_madness.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 29193BD12563209C00D2E44A /* munch_madness.xcdatamodeld */; };
+		29193BD52563209D00D2E44A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29193BD42563209D00D2E44A /* Assets.xcassets */; };
+		29193BD82563209D00D2E44A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29193BD62563209D00D2E44A /* LaunchScreen.storyboard */; };
+		29193BE025633ECB00D2E44A /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29193BDF25633ECB00D2E44A /* PreferencesViewController.swift */; };
+		29193BE3256355AA00D2E44A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29193BE1256355AA00D2E44A /* Main.storyboard */; };
+		2968C7B9257313FF0009FEA4 /* WinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2968C7B8257313FF0009FEA4 /* WinnerViewController.swift */; };
+		2968C7BB25731A300009FEA4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2968C7BA25731A300009FEA4 /* WebViewController.swift */; };
+		49F6975859379895AFC9CEA7 /* Pods_munch_madness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FBAD4542EDB9BCEF56DBB79 /* Pods_munch_madness.framework */; };
+		789B568A256A262D00BDB9DA /* BracketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B5689256A262D00BDB9DA /* BracketViewController.swift */; };
+		789B568C256F1FFF00BDB9DA /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B568B256F1FFF00BDB9DA /* GroupViewController.swift */; };
+		789B568E256F2CF000BDB9DA /* WaitingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B568D256F2CF000BDB9DA /* WaitingViewController.swift */; };
+		789B56942573251D00BDB9DA /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B56912573251D00BDB9DA /* Restaurant.swift */; };
+		789B56952573251D00BDB9DA /* FetchRestaurantData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B56922573251D00BDB9DA /* FetchRestaurantData.swift */; };
+		7F8452332565F45100A9CAAA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F8452322565F45100A9CAAA /* GoogleService-Info.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		29193BC52563209C00D2E44A /* munch-madness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "munch-madness.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		29193BC82563209C00D2E44A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		29193BCA2563209C00D2E44A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		29193BCC2563209C00D2E44A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		29193BD22563209C00D2E44A /* munch_madness.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = munch_madness.xcdatamodel; sourceTree = "<group>"; };
+		29193BD42563209D00D2E44A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		29193BD72563209D00D2E44A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		29193BD92563209D00D2E44A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		29193BDF25633ECB00D2E44A /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		29193BE2256355AA00D2E44A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2968C7B8257313FF0009FEA4 /* WinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinnerViewController.swift; sourceTree = "<group>"; };
+		2968C7BA25731A300009FEA4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		41640417761B205B95EBE317 /* Pods-munch-madness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-munch-madness.debug.xcconfig"; path = "Target Support Files/Pods-munch-madness/Pods-munch-madness.debug.xcconfig"; sourceTree = "<group>"; };
+		755D46884F8EE62063A18A07 /* Pods-munch-madness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-munch-madness.release.xcconfig"; path = "Target Support Files/Pods-munch-madness/Pods-munch-madness.release.xcconfig"; sourceTree = "<group>"; };
+		789B5689256A262D00BDB9DA /* BracketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketViewController.swift; sourceTree = "<group>"; };
+		789B568B256F1FFF00BDB9DA /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
+		789B568D256F2CF000BDB9DA /* WaitingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingViewController.swift; sourceTree = "<group>"; };
+		789B56912573251D00BDB9DA /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
+		789B56922573251D00BDB9DA /* FetchRestaurantData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchRestaurantData.swift; sourceTree = "<group>"; };
+		7F8452322565F45100A9CAAA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9FBAD4542EDB9BCEF56DBB79 /* Pods_munch_madness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_munch_madness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		29193BC22563209C00D2E44A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49F6975859379895AFC9CEA7 /* Pods_munch_madness.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1C4A68F8FC7B560E0DCD664D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				41640417761B205B95EBE317 /* Pods-munch-madness.debug.xcconfig */,
+				755D46884F8EE62063A18A07 /* Pods-munch-madness.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		29193BBC2563209C00D2E44A = {
+			isa = PBXGroup;
+			children = (
+				29193BC72563209C00D2E44A /* munch-madness */,
+				29193BC62563209C00D2E44A /* Products */,
+				1C4A68F8FC7B560E0DCD664D /* Pods */,
+				C5CCC89F403A70B794C59A4E /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		29193BC62563209C00D2E44A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				29193BC52563209C00D2E44A /* munch-madness.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29193BC72563209C00D2E44A /* munch-madness */ = {
+			isa = PBXGroup;
+			children = (
+				789B56922573251D00BDB9DA /* FetchRestaurantData.swift */,
+				789B56912573251D00BDB9DA /* Restaurant.swift */,
+				29193BC82563209C00D2E44A /* AppDelegate.swift */,
+				7F8452322565F45100A9CAAA /* GoogleService-Info.plist */,
+				29193BCA2563209C00D2E44A /* SceneDelegate.swift */,
+				29193BCC2563209C00D2E44A /* ViewController.swift */,
+				29193BE1256355AA00D2E44A /* Main.storyboard */,
+				2968C7BA25731A300009FEA4 /* WebViewController.swift */,
+				2968C7B8257313FF0009FEA4 /* WinnerViewController.swift */,
+				29193BDF25633ECB00D2E44A /* PreferencesViewController.swift */,
+				29193BD42563209D00D2E44A /* Assets.xcassets */,
+				29193BD62563209D00D2E44A /* LaunchScreen.storyboard */,
+				29193BD92563209D00D2E44A /* Info.plist */,
+				29193BD12563209C00D2E44A /* munch_madness.xcdatamodeld */,
+				789B5689256A262D00BDB9DA /* BracketViewController.swift */,
+				789B568B256F1FFF00BDB9DA /* GroupViewController.swift */,
+				789B568D256F2CF000BDB9DA /* WaitingViewController.swift */,
+			);
+			path = "munch-madness";
+			sourceTree = "<group>";
+		};
+		C5CCC89F403A70B794C59A4E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9FBAD4542EDB9BCEF56DBB79 /* Pods_munch_madness.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		29193BC42563209C00D2E44A /* munch-madness */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 29193BDC2563209D00D2E44A /* Build configuration list for PBXNativeTarget "munch-madness" */;
+			buildPhases = (
+				D0151526CDBFE8188F93208D /* [CP] Check Pods Manifest.lock */,
+				29193BC12563209C00D2E44A /* Sources */,
+				29193BC22563209C00D2E44A /* Frameworks */,
+				29193BC32563209C00D2E44A /* Resources */,
+				A6804AC257E1B5FF10172FFE /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "munch-madness";
+			productName = "munch-madness";
+			productReference = 29193BC52563209C00D2E44A /* munch-madness.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29193BBD2563209C00D2E44A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1150;
+				LastUpgradeCheck = 1150;
+				ORGANIZATIONNAME = "Katie Vanesko";
+				TargetAttributes = {
+					29193BC42563209C00D2E44A = {
+						CreatedOnToolsVersion = 11.5;
+					};
+				};
+			};
+			buildConfigurationList = 29193BC02563209C00D2E44A /* Build configuration list for PBXProject "munch-madness" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 29193BBC2563209C00D2E44A;
+			productRefGroup = 29193BC62563209C00D2E44A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				29193BC42563209C00D2E44A /* munch-madness */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		29193BC32563209C00D2E44A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29193BE3256355AA00D2E44A /* Main.storyboard in Resources */,
+				7F8452332565F45100A9CAAA /* GoogleService-Info.plist in Resources */,
+				29193BD82563209D00D2E44A /* LaunchScreen.storyboard in Resources */,
+				29193BD52563209D00D2E44A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A6804AC257E1B5FF10172FFE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-munch-madness/Pods-munch-madness-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-munch-madness/Pods-munch-madness-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-munch-madness/Pods-munch-madness-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D0151526CDBFE8188F93208D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-munch-madness-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		29193BC12563209C00D2E44A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				789B56952573251D00BDB9DA /* FetchRestaurantData.swift in Sources */,
+				789B568E256F2CF000BDB9DA /* WaitingViewController.swift in Sources */,
+				29193BE025633ECB00D2E44A /* PreferencesViewController.swift in Sources */,
+				2968C7B9257313FF0009FEA4 /* WinnerViewController.swift in Sources */,
+				2968C7BB25731A300009FEA4 /* WebViewController.swift in Sources */,
+				29193BCD2563209C00D2E44A /* ViewController.swift in Sources */,
+				29193BC92563209C00D2E44A /* AppDelegate.swift in Sources */,
+				29193BCB2563209C00D2E44A /* SceneDelegate.swift in Sources */,
+				789B56942573251D00BDB9DA /* Restaurant.swift in Sources */,
+				29193BD32563209C00D2E44A /* munch_madness.xcdatamodeld in Sources */,
+				789B568A256A262D00BDB9DA /* BracketViewController.swift in Sources */,
+				789B568C256F1FFF00BDB9DA /* GroupViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		29193BD62563209D00D2E44A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				29193BD72563209D00D2E44A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		29193BE1256355AA00D2E44A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				29193BE2256355AA00D2E44A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		29193BDA2563209D00D2E44A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		29193BDB2563209D00D2E44A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		29193BDD2563209D00D2E44A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41640417761B205B95EBE317 /* Pods-munch-madness.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5V65388LFU;
+				INFOPLIST_FILE = "munch-madness/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "katie.munch-madness";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		29193BDE2563209D00D2E44A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 755D46884F8EE62063A18A07 /* Pods-munch-madness.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5V65388LFU;
+				INFOPLIST_FILE = "munch-madness/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "katie.munch-madness";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		29193BC02563209C00D2E44A /* Build configuration list for PBXProject "munch-madness" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29193BDA2563209D00D2E44A /* Debug */,
+				29193BDB2563209D00D2E44A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		29193BDC2563209D00D2E44A /* Build configuration list for PBXNativeTarget "munch-madness" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29193BDD2563209D00D2E44A /* Debug */,
+				29193BDE2563209D00D2E44A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		29193BD12563209C00D2E44A /* munch_madness.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				29193BD22563209C00D2E44A /* munch_madness.xcdatamodel */,
+			);
+			currentVersion = 29193BD22563209C00D2E44A /* munch_madness.xcdatamodel */;
+			path = munch_madness.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 29193BBD2563209C00D2E44A /* Project object */;
+}
