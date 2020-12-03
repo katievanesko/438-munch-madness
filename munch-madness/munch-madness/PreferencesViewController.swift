@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-
+    
     @IBOutlet weak var cuisinePicker: UIPickerView!
     @IBAction func pricePicker(_ sender: Any) {
     }
@@ -18,14 +20,23 @@ class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var findRestaurantsBtn: UIButton!
     @IBOutlet weak var location: UITextView!
     
+    @IBOutlet weak var price: UISegmentedControl!
     
+    var gameCode: String = ""
     var cuisineData:[String] = []
     var priceData:[String] = []
     var radiusData:[String] = []
     
+    var radiusInMeters = [40000, 1600, 8000, 16000, 24000]
+    var priceInNumbers = ["1,2,3,4","1", "2", "3","4"]
+    
+    var ref: DatabaseReference!
+    var restaurants:[Restaurant] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("game code is \(gameCode)")
         
         cuisineData = ["Any","American","Breakfast","Burgers", "Chinese","Italian", "Japanese","Korean" ,"Mexican","Pizza","Sandwiches","Seafood"]
         radiusData = ["Any", "1 mile","5 miles","10 miles","15 miles"]
@@ -35,6 +46,8 @@ class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPicke
   
         radiusPicker.dataSource = self
         radiusPicker.delegate = self
+        ref = Database.database().reference()
+
         
     }
     
@@ -57,7 +70,49 @@ class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPicke
             return radiusData[row]
         }
     }
-   
+    
+    
+    @IBAction func findRestaurants(_ sender: Any) {
+//        print("in find restaurants")
+//        let frd = FetchRestaurantData()
+//        let loc = location.text ?? ""
+//        let p = priceInNumbers[ price.selectedSegmentIndex]
+////        let r = radiusInMeters[radiusPicker.selectedRow(inComponent: 1)]
+//        let c = cuisineData[cuisinePicker.selectedRow(inComponent: 0)]
+//
+//        DispatchQueue.global(qos: .userInitiated).async {
+//            self.restaurants = frd.retrieveVenues(location: loc, category: c, limit: 10, sortBy: "", price: p)
+//            for rest in restaurants {
+//                self.ref.child("groups").child("123456").child("restaurants").child(rest.id).setValue(true)
+//            }
+            
+//            DispatchQueue.main.async {
+//
+//
+//            }
+
+//        }
+        
+    }
+    
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            // Get the new view controller using segue.destination.
+            // Pass the selected object to the new view controller.
+            print("preparing for segue")
+            if let target = segue.destination as? GroupViewController {
+                print("inside if statement")
+//                let frd = FetchRestaurantData()
+                target.prefLoc = location.text ?? ""
+                target.prefPrice = priceInNumbers[ price.selectedSegmentIndex]
+                target.prefRadius=radiusInMeters[radiusPicker.selectedRow(inComponent: 0)]
+                print(target.prefRadius)
+                target.prefCuisine = cuisineData[cuisinePicker.selectedRow(inComponent: 0)]
+                        
+
+                
+            }
+        }
+    
 
 
 }

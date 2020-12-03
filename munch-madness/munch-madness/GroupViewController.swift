@@ -14,7 +14,12 @@ import FirebaseAuth
 class GroupViewController: UIViewController {
 
     var ref: DatabaseReference!
-    var gamePin: NSString?
+    var gamePin: String?
+    var restaurants:[Restaurant]=[]
+    var prefLoc: String?
+    var prefRadius: Int?
+    var prefPrice: String?
+    var prefCuisine: String?
     
     @IBOutlet weak var codeLabel: UILabel!
     
@@ -23,13 +28,15 @@ class GroupViewController: UIViewController {
         // when someone hits "Find Restaurants", the user will be redirected to this VC and group will be created
         ref = Database.database().reference()
         addGroup()
+        print("prefPrice is \(prefPrice)")
+        addRestaurants()
         
         // Do any additional setup after loading the view.
     }
     
     func addGroup(){
-        gamePin = generatePin(len: 6)
-        self.ref.child("groups").child(gamePin! as String).setValue(["name": "test"])
+        gamePin = generatePin(len: 6) as String
+
         codeLabel.text = gamePin as String?
     }
     
@@ -46,6 +53,29 @@ class GroupViewController: UIViewController {
         }
         return randomString
         
+    }
+    
+    func addRestaurants(){
+//        print("in add restaurants")
+//        print(restaurants)
+        let frd = FetchRestaurantData()
+        DispatchQueue.global(qos: .userInitiated).async {
+            frd.retrieveVenues(location: self.prefLoc!, category: self.prefCuisine!, limit: 8, sortBy: "", price: self.prefPrice!, radius: self.prefRadius!){(restList, err) in
+                if let error = err {
+                    print(error)
+                }
+                if let restaurantList = restList {
+                    self.restaurants = restaurantList
+                    for rest in self.restaurants {
+                        self.ref.child("groups").child(self.gamePin!).child("restaurants").child(rest.id).setValue(true)
+                    }
+                }
+            }
+
+
+        }
+        
+
     }
     
 

@@ -115,7 +115,12 @@ class WaitingViewController: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if let target = segue.destination as? PreferencesViewController {
+            target. = 
+        }
     }
-    */
+ */
+    
+    
 
 }

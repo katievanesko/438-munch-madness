@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="1J1-hP-yOw">
-                                <rect key="frame" x="0.0" y="91" width="375" height="144"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="149"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Xe-56-9CN">
                                 <rect key="frame" x="32.666666666666657" y="289" width="310" height="51"/>
@@ -132,6 +132,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Find Restaurants"/>
                                 <connections>
+                                    <action selector="findRestaurants:" destination="FhK-jp-AmY" eventType="touchUpInside" id="H4Y-UD-H00"/>
                                     <segue destination="BQA-8v-chF" kind="show" id="srx-bk-LBE"/>
                                 </connections>
                             </button>
@@ -273,6 +274,7 @@
                         <outlet property="cuisinePicker" destination="6N0-Vd-nEB" id="eHq-AI-ZTU"/>
                         <outlet property="findRestaurantsBtn" destination="JX1-he-aLq" id="7Ou-Sv-d1C"/>
                         <outlet property="location" destination="wXE-mv-r3p" id="gNu-8X-eK3"/>
+                        <outlet property="price" destination="Pl0-xd-6aq" id="bhB-CV-hOD"/>
                         <outlet property="radiusPicker" destination="r38-Yq-yJs" id="sdl-fX-Xvg"/>
                     </connections>
                 </viewController>

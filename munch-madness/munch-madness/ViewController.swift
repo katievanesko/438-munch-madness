@@ -76,9 +76,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.joinCodeField.delegate = self
         ref = Database.database().reference()
-        watchGroupData()
-        let frd = FetchRestaurantData()
-        frd.retrieveVenues(location: "NYC", category: "pizza", limit: 2, sortBy: "1", price: "2")
+       // watchGroupData()
+        
 //        addUser()
 //        voteTransactions(groupID: gameCode!)
         // addUser()
@@ -153,7 +152,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        // Get the new view controller using segue.destination.
+//        // Pass the selected object to the new view controller.
+//        print("preparing for segue")
+//        if let target = segue.destination as? PreferencesViewController {
+//
+//            target.gameCode = gameCode ?? ""
+//        }
+//    }
 
 }
 
