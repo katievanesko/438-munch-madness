@@ -42,6 +42,18 @@ class WaitingViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
         ref = Database.database().reference()
         nameField.delegate = self
+        checkStartPressed()
+    }
+    
+    func checkStartPressed() {
+        let results = getNameAndCode()
+        let code = results[1]
+        self.ref.child("groups").child(code).child("isPressed").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                let newBracketVC = self.storyboard?.instantiateViewController(withIdentifier: "BracketViewController") as! BracketViewController
+                self.present(newBracketVC, animated: false, completion: nil)
+            }
+        })
     }
     
     func getNameAndCode() -> Array<String> {
@@ -56,6 +68,7 @@ class WaitingViewController: UIViewController, UITextFieldDelegate {
 
         do {
             let results = try managedContent.fetch(fetchRequest)
+            print(results)
             answers.append(results[results.count - 1].value(forKey: "name") as! String)
             answers.append(results[results.count - 1].value(forKey: "code") as! String)
             return answers

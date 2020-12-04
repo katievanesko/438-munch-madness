@@ -34,6 +34,12 @@ class GroupViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func startPressed(_ sender: Any) {
+        if let code = gamePin {
+            self.ref.child("groups").child(code).child("isPressed").setValue(true)
+        }
+    }
+    
     func addGroup(){
         gamePin = generatePin(len: 6) as String
 

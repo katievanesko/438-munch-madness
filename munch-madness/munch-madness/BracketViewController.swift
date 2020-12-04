@@ -53,7 +53,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         let seconds = 2.0
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             // Check round number
-            let numChoices = 10 //set to appropriate value
+            let numChoices = 1 //set to appropriate value
             if numChoices > 1 {
                 // Create new BracketViewController
                 let newBracketVC = self.storyboard?.instantiateViewController(withIdentifier: "BracketViewController") as! BracketViewController

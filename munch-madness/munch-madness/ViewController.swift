@@ -31,9 +31,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     // basically creating a set of users for each group - not quite an array, but similar vibe https://stackoverflow.com/questions/39815117/add-an-item-to-a-list-in-firebase-database
     @IBAction func joinGroupBtn(_ sender: Any) {
         // I moved the contents of addUser() here to check if code exists, and if it does, perform segue
-//        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInitiated).async {
             self.ref.child("groups").observeSingleEvent(of: .value, with: { (snapshot) in
                 if let code = self.gameCode {
+                    print("code in VC \(code)")
                     if snapshot.hasChild(code) {
                         self.ref.child("groups").child(code).child("users").child("putUserNameHere").setValue(true)
 
@@ -47,36 +48,35 @@ class ViewController: UIViewController, UITextFieldDelegate {
                             let currentUser = NSManagedObject(entity: entity, insertInto: managedContent)
                             currentUser.setValue("putUserNameHere", forKey: "name")
                             currentUser.setValue(code, forKey: "code")
-
                             do {
                                 try managedContent.save()
-                                print("saved")
+                                print("saved \(currentUser)")
                             } catch {
                                 print("Could not save")
                             }
                         }
-//                        DispatchQueue.main.async {
-//                            print("i'm seguing")
-//                            self.performSegue(withIdentifier: "toWaitingVC", sender: nil)
-//                        }
+                        DispatchQueue.main.async {
+                            let newWaitingVC = self.storyboard?.instantiateViewController(withIdentifier: "WaitingViewController") as! WaitingViewController
+                            self.present(newWaitingVC, animated: false, completion: nil)
+                        }
                     } else {
-//                        DispatchQueue.main.async {
+                        DispatchQueue.main.async {
                             let alert = UIAlertController(title: "Group Code Not Found", message: "Please try again!", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { alert in }))
 
                             self.present(alert, animated: true, completion: nil)
-//                        }
+                        }
                     }
                 }
             })
-//    }
+    }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.joinCodeField.delegate = self
         ref = Database.database().reference()
-       // watchGroupData()
+        watchGroupData()
         
 //        addUser()
 //        voteTransactions(groupID: gameCode!)
