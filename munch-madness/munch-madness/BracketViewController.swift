@@ -27,6 +27,8 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var bottomCuisine: UILabel!
     
+    var restaurants: [Restaurant] = []
+    
     //add radius/distance and price
     
     override func viewDidLoad() {
@@ -48,9 +50,9 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         self.view.addGestureRecognizer(leftSwipe)
         
         // fillInRestaurants()
+        fillInInitial()
         
-        
-        let seconds = 2.0
+        let seconds = 5.0
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             // Check round number
             let numChoices = 1 //set to appropriate value
@@ -94,6 +96,29 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+    
+    func fillInInitial(){
+        if restaurants.count > 2 {
+            topName.text = restaurants[0].name
+            topRating.text = String(describing: restaurants[0].rating)
+            topCuisine.text! = restaurants[0].categories[0].title
+
+            
+            //can have multiple categories, so may want to consider a way to append more than one!
+//            for cat in restaurants[0].categories {
+//                topCuisine.text! += cat.title + " "
+//            }
+            
+            bottomName.text = restaurants[1].name
+            bottomRating.text = String(describing: restaurants[1].rating)
+            bottomCuisine.text! = restaurants[1].categories[0].title
+//            for cat in restaurants[1].categories {
+//                bottomCuisine.text! += cat.title + " "
+//            }
+           
+            
+        }
     }
 
 

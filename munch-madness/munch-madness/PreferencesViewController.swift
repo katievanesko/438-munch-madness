@@ -98,14 +98,14 @@ class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPicke
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             // Get the new view controller using segue.destination.
             // Pass the selected object to the new view controller.
-            print("preparing for segue")
+//            print("preparing for segue")
             if let target = segue.destination as? GroupViewController {
                 print("inside if statement")
 //                let frd = FetchRestaurantData()
                 target.prefLoc = location.text ?? ""
                 target.prefPrice = priceInNumbers[ price.selectedSegmentIndex]
                 target.prefRadius=radiusInMeters[radiusPicker.selectedRow(inComponent: 0)]
-                print(target.prefRadius)
+//                print(target.prefRadius)
                 target.prefCuisine = cuisineData[cuisinePicker.selectedRow(inComponent: 0)]
                         
 
