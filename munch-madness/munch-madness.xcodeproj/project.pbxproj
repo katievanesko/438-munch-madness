@@ -17,6 +17,8 @@
 		29193BE3256355AA00D2E44A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29193BE1256355AA00D2E44A /* Main.storyboard */; };
 		2968C7B9257313FF0009FEA4 /* WinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2968C7B8257313FF0009FEA4 /* WinnerViewController.swift */; };
 		2968C7BB25731A300009FEA4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2968C7BA25731A300009FEA4 /* WebViewController.swift */; };
+		2974CD08257AFDFF00A171F0 /* PlayerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974CD06257AFDFF00A171F0 /* PlayerCollectionViewCell.swift */; };
+		2974CD09257AFDFF00A171F0 /* PlayerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2974CD07257AFDFF00A171F0 /* PlayerCollectionViewCell.xib */; };
 		789B568A256A262D00BDB9DA /* BracketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B5689256A262D00BDB9DA /* BracketViewController.swift */; };
 		789B568C256F1FFF00BDB9DA /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B568B256F1FFF00BDB9DA /* GroupViewController.swift */; };
 		789B568E256F2CF000BDB9DA /* WaitingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B568D256F2CF000BDB9DA /* WaitingViewController.swift */; };
@@ -39,6 +41,8 @@
 		29193BE2256355AA00D2E44A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2968C7B8257313FF0009FEA4 /* WinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinnerViewController.swift; sourceTree = "<group>"; };
 		2968C7BA25731A300009FEA4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		2974CD06257AFDFF00A171F0 /* PlayerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCell.swift; sourceTree = "<group>"; };
+		2974CD07257AFDFF00A171F0 /* PlayerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerCollectionViewCell.xib; sourceTree = "<group>"; };
 		367817EA9D56E89D0CAA2062 /* Pods_munch_madness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_munch_madness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		789B5689256A262D00BDB9DA /* BracketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketViewController.swift; sourceTree = "<group>"; };
 		789B568B256F1FFF00BDB9DA /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +113,8 @@
 				789B5689256A262D00BDB9DA /* BracketViewController.swift */,
 				789B568B256F1FFF00BDB9DA /* GroupViewController.swift */,
 				789B568D256F2CF000BDB9DA /* WaitingViewController.swift */,
+				2974CD06257AFDFF00A171F0 /* PlayerCollectionViewCell.swift */,
+				2974CD07257AFDFF00A171F0 /* PlayerCollectionViewCell.xib */,
 			);
 			path = "munch-madness";
 			sourceTree = "<group>";
@@ -182,6 +188,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				29193BE3256355AA00D2E44A /* Main.storyboard in Resources */,
+				2974CD09257AFDFF00A171F0 /* PlayerCollectionViewCell.xib in Resources */,
 				7F8452332565F45100A9CAAA /* GoogleService-Info.plist in Resources */,
 				29193BD82563209D00D2E44A /* LaunchScreen.storyboard in Resources */,
 				29193BD52563209D00D2E44A /* Assets.xcassets in Resources */,
@@ -248,6 +255,7 @@
 				789B56942573251D00BDB9DA /* Restaurant.swift in Sources */,
 				29193BD32563209C00D2E44A /* munch_madness.xcdatamodeld in Sources */,
 				789B568A256A262D00BDB9DA /* BracketViewController.swift in Sources */,
+				2974CD08257AFDFF00A171F0 /* PlayerCollectionViewCell.swift in Sources */,
 				789B568C256F1FFF00BDB9DA /* GroupViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

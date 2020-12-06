@@ -6,6 +6,7 @@ target 'munch-madness' do
   use_frameworks!
 
   # Pods for munch-madness
+  pod 'Firebase'
   pod 'Firebase/Database'
   pod 'Firebase/InAppMessaging'
   pod 'Firebase/Analytics'

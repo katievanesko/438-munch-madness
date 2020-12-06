@@ -12,28 +12,22 @@ import FirebaseDatabase
 import FirebaseAuth
 import CoreData
 
-class WaitingViewController: UIViewController, UITextFieldDelegate {
+class WaitingViewController: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource{
+
 
     var name: String?
     var ref: DatabaseReference!
+    var currentPlayersList:[String] = []
     
     @IBOutlet weak var nameStack: UIStackView!
     
     @IBOutlet weak var nameField: UITextField!
     
-    @IBAction func nameFieldChanged(_ sender: Any) {
-        if let newName = nameField.text {
-            //probably will need to check if the user already has a username and update the field if they do, else create a new entry and update
-            // self.ref.child("groups").child(code).child("users").child(name).setValue(true)
-
-            name = newName
-            
-        }
-    }
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
-    @IBAction func enterPressed(_ sender: Any) {
-        addNewName()
-    }
+    @IBOutlet weak var currentPlayerCollectionView: UICollectionView!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,8 +35,27 @@ class WaitingViewController: UIViewController, UITextFieldDelegate {
 
         // Do any additional setup after loading the view.
         ref = Database.database().reference()
+        self.spinner.hidesWhenStopped = true
         nameField.delegate = self
+        currentPlayerCollectionView.delegate = self
+        currentPlayerCollectionView.dataSource = self
+        currentPlayerCollectionView.register(PlayerCollectionViewCell.nib(), forCellWithReuseIdentifier: "PlayerCollectionViewCell")
         checkStartPressed()
+        checkCurrentPlayers()
+    }
+    
+    @IBAction func nameFieldChanged(_ sender: Any) {
+        self.spinner.startAnimating()
+        if let newName = nameField.text {
+            //probably will need to check if the user already has a username and update the field if they do, else create a new entry and update
+            // self.ref.child("groups").child(code).child("users").child(name).setValue(true)
+
+            name = newName
+        }
+    }
+    
+    @IBAction func enterPressed(_ sender: Any) {
+        addNewName()
     }
     
     func checkStartPressed() {
@@ -85,14 +98,14 @@ class WaitingViewController: UIViewController, UITextFieldDelegate {
         
         if results.count == 2 {
             if let newName = self.name {
-//                DispatchQueue.global(qos: .userInitiated).async {
+                DispatchQueue.global(qos: .userInitiated).async {
                     self.ref.child("groups").child(code).child("users").child(oldName).removeValue(completionBlock: { (error, ref) in
                         print(error ?? "success")
                     })
                     
                     self.ref.child("groups").child(code).child("users").child(newName).setValue(true)
                 
-//                    DispatchQueue.main.async {
+                    DispatchQueue.main.async {
                         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                             return
                         }
@@ -106,10 +119,10 @@ class WaitingViewController: UIViewController, UITextFieldDelegate {
                             let results = try managedContent.fetch(fetchRequest)
                             if results.count > 0 {
                                 let object = results[0]
-                                object.setValue(name, forKey: "name")
+                                object.setValue(self.name, forKey: "name")
                                 do {
                                     try managedContent.save()
-                                    nameStack.removeFromSuperview()
+                                    self.nameStack.removeFromSuperview()
                                 } catch {
                                     print("Could not save")
                                 }
@@ -117,22 +130,40 @@ class WaitingViewController: UIViewController, UITextFieldDelegate {
                         } catch {
                             print("Could not fetch")
                         }
+                    }
+                }
             }
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-        if let target = segue.destination as? PreferencesViewController {
-            target. = 
-        }
+    func checkCurrentPlayers() {
+        let results = getNameAndCode()
+        let code = results[1]
+        
+        self.ref.child("groups").child(code).child("users").observe(.value, with: { (snapshot) in
+                print("HERE")
+                guard let snapChildren = snapshot.value as? [String: Any] else { return }
+                for snap in snapChildren {
+                    print(snap.key)
+                    self.currentPlayersList.append(snap.key)
+                }
+            
+            
+            DispatchQueue.main.async {
+                self.currentPlayerCollectionView.reloadData()
+            }
+        })
     }
- */
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        self.currentPlayersList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlayerCollectionViewCell", for: indexPath) as! PlayerCollectionViewCell
+        cell.configure(title: currentPlayersList[indexPath.row])
+        return cell
+    }
     
     
 

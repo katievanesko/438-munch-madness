@@ -10,9 +10,11 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
+import CoreData
 
-class GroupViewController: UIViewController {
+class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
 
+    var name: String?
     var ref: DatabaseReference!
     var gamePin: String?
     var restaurants:[Restaurant]=[]
@@ -20,18 +22,30 @@ class GroupViewController: UIViewController {
     var prefRadius: Int?
     var prefPrice: String?
     var prefCuisine: String?
+    var currentPlayersList:[String] = []
     
     @IBOutlet weak var codeLabel: UILabel!
+    
+    @IBOutlet weak var nameTextField: UITextField!
+    
+    @IBOutlet weak var currentPlayerCollectionView: UICollectionView!
+    
+    @IBOutlet weak var nameStack: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // when someone hits "Find Restaurants", the user will be redirected to this VC and group will be created
         ref = Database.database().reference()
-        addGroup()
-        print("prefPrice is \(prefPrice)")
-        addRestaurants()
+        nameTextField.delegate = self
+        currentPlayerCollectionView.delegate = self
+        currentPlayerCollectionView.dataSource = self
+        currentPlayerCollectionView.register(PlayerCollectionViewCell.nib(), forCellWithReuseIdentifier: "PlayerCollectionViewCell")
         
-        // Do any additional setup after loading the view.
+        addGroup()
+//        print("prefPrice is \(prefPrice)")
+        addRestaurants()
+        checkCurrentPlayers()
+        
     }
     
     @IBAction func startPressed(_ sender: Any) {
@@ -58,7 +72,6 @@ class GroupViewController: UIViewController {
             randomString.appendFormat("%C", letters.character(at: Int(rand)))
         }
         return randomString
-        
     }
     
     func addRestaurants(){
@@ -77,13 +90,91 @@ class GroupViewController: UIViewController {
                     }
                 }
             }
-
-
         }
-        
-
     }
     
+    
+    @IBAction func copyCode(_ sender: Any) {
+        UIPasteboard.general.string = codeLabel.text
+    }
+    
+    @IBAction func addHostName(_ sender: Any) {
+        self.name = self.nameTextField.text
+        if self.name == "" {
+            self.name = "Player"
+        }
+        addNewName()
+    }
+    
+    func getNameAndCode() -> Array<String> {
+        var answers:Array<String> = []
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return []
+        }
+
+        let managedContent = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "User")
+
+        do {
+            let results = try managedContent.fetch(fetchRequest)
+            print(results)
+            answers.append(results[results.count - 1].value(forKey: "name") as! String)
+            answers.append(results[results.count - 1].value(forKey: "code") as! String)
+            return answers
+        } catch {
+            print("Could not fetch")
+            return []
+        }
+    }
+    
+    func addNewName() {
+        let results = getNameAndCode()
+        let oldName = results[0]
+        let code = results[1]
+        
+        if results.count == 2 {
+            if let newName = self.name {
+                DispatchQueue.global(qos: .userInitiated).async {
+                    self.ref.child("groups").child(code).child("users").child(oldName).removeValue(completionBlock: { (error, ref) in
+                        print(error ?? "success")
+                    })
+                    
+                    self.ref.child("groups").child(code).child("users").child(newName).setValue(true)
+                
+                    DispatchQueue.main.async {
+                        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                            return
+                        }
+
+                        let managedContent = appDelegate.persistentContainer.viewContext
+                        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "User")
+                        
+                        fetchRequest.predicate = NSPredicate(format: "code = %@", code)
+                
+                        do {
+                            let results = try managedContent.fetch(fetchRequest)
+                            if results.count > 0 {
+                                let object = results[0]
+                                object.setValue(self.name, forKey: "name")
+                                do {
+                                    try managedContent.save()
+                                    self.nameStack.removeFromSuperview()
+                                    print("REMOVED NAME STACK")
+                                } catch {
+                                    print("Could not save")
+                                }
+                            }
+                        } catch {
+                            print("Could not fetch")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+<<<<<<< Updated upstream
     
     // MARK: - Navigation
 
@@ -96,5 +187,52 @@ class GroupViewController: UIViewController {
         }
     }
     
-
+    func checkCurrentPlayers() {
+        let results = getNameAndCode()
+        let code = results[1]
+        
+        self.ref.child("groups").child(code).child("users").observe(.value, with: { (snapshot) in
+                print("HERE")
+                guard let snapChildren = snapshot.value as? [String: Any] else { return }
+                for snap in snapChildren {
+                    print(snap.key)
+                    self.currentPlayersList.append(snap.key)
+                }
+            
+            DispatchQueue.main.async {
+                self.currentPlayerCollectionView.reloadData()
+            }
+        })
+    }
+    
+=======
+    func checkCurrentPlayers() {
+        let results = getNameAndCode()
+        let code = results[1]
+        
+        self.ref.child("groups").child(code).child("users").observe(.value, with: { (snapshot) in
+                print("HERE")
+                guard let snapChildren = snapshot.value as? [String: Any] else { return }
+                for snap in snapChildren {
+                    print(snap.key)
+                    self.currentPlayersList.append(snap.key)
+                }
+            
+            DispatchQueue.main.async {
+                self.currentPlayerCollectionView.reloadData()
+            }
+        })
+    }
+    
+>>>>>>> Stashed changes
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        self.currentPlayersList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlayerCollectionViewCell", for: indexPath) as! PlayerCollectionViewCell
+        cell.configure(title: currentPlayersList[indexPath.row])
+        return cell
+    }
+    
 }
