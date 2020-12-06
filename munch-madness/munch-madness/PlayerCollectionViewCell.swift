@@ -26,4 +26,5 @@ class PlayerCollectionViewCell: UICollectionViewCell {
            return UINib(nibName: "PlayerCollectionViewCell", bundle: nil)
        }
 
+    
 }

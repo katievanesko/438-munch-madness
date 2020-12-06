@@ -13,3 +13,4 @@ target 'munch-madness' do
   pod 'Firebase/DynamicLinks'
   pod 'Firebase/Auth'
 end
+

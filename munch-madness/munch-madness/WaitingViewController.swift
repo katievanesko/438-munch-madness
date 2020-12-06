@@ -165,6 +165,4 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
         return cell
     }
     
-    
-
 }

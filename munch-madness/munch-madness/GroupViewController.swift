@@ -173,8 +173,7 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
             }
         }
     }
-    
-<<<<<<< Updated upstream
+
     
     // MARK: - Navigation
 
@@ -205,26 +204,7 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
         })
     }
     
-=======
-    func checkCurrentPlayers() {
-        let results = getNameAndCode()
-        let code = results[1]
-        
-        self.ref.child("groups").child(code).child("users").observe(.value, with: { (snapshot) in
-                print("HERE")
-                guard let snapChildren = snapshot.value as? [String: Any] else { return }
-                for snap in snapChildren {
-                    print(snap.key)
-                    self.currentPlayersList.append(snap.key)
-                }
-            
-            DispatchQueue.main.async {
-                self.currentPlayerCollectionView.reloadData()
-            }
-        })
-    }
     
->>>>>>> Stashed changes
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         self.currentPlayersList.count
     }
