@@ -93,7 +93,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         ref.observe(.value, with: {
             snapshot in
             
-            print("\(snapshot.key)-> \(String(describing:snapshot.value))")
+//            print("\(snapshot.key)-> \(String(describing:snapshot.value))")
         })
     }
     

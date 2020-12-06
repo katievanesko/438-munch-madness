@@ -17,7 +17,7 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
     var name: String?
     var ref: DatabaseReference!
     var gamePin: String?
-    var restaurants:[Restaurant]=[]
+    var restaurants:[Restaurant] = []
     var prefLoc: String?
     var prefRadius: Int?
     var prefPrice: String?
@@ -35,6 +35,8 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         // when someone hits "Find Restaurants", the user will be redirected to this VC and group will be created
+        print("CURRENT USERS: \(currentPlayersList)")
+        
         ref = Database.database().reference()
         nameTextField.delegate = self
         currentPlayerCollectionView.delegate = self
@@ -44,8 +46,6 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
         addGroup()
 //        print("prefPrice is \(prefPrice)")
         addRestaurants()
-        checkCurrentPlayers()
-        
     }
     
     @IBAction func startPressed(_ sender: Any) {
@@ -58,6 +58,18 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
         gamePin = generatePin(len: 6) as String
 
         codeLabel.text = gamePin as String?
+        
+        self.ref.child("groups").child(gamePin!).child("users").observe(.value, with: { (snapshot) in
+            guard let snapChildren = snapshot.value as? [String: Any] else { return }
+            for snap in snapChildren {
+                print(snap.key)
+                self.currentPlayersList.append(snap.key)
+            }
+            
+            DispatchQueue.main.async {
+                self.currentPlayerCollectionView.reloadData()
+            }
+        })
     }
     
     // based on solution 1 from https://izziswift.com/short-random-unique-alphanumeric-keys-similar-to-youtube-ids-in-swift/
@@ -99,11 +111,15 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
     }
     
     @IBAction func addHostName(_ sender: Any) {
+        print("CURRENT USERS: \(currentPlayersList)// ADDHOSTNAME()")
         self.name = self.nameTextField.text
         if self.name == "" {
             self.name = "Player"
         }
         addNewName()
+        DispatchQueue.main.async {
+            self.currentPlayerCollectionView.reloadData()
+        }
     }
     
     func getNameAndCode() -> Array<String> {
@@ -118,7 +134,7 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
 
         do {
             let results = try managedContent.fetch(fetchRequest)
-            print(results)
+//            print(results)
             answers.append(results[results.count - 1].value(forKey: "name") as! String)
             answers.append(results[results.count - 1].value(forKey: "code") as! String)
             return answers
@@ -160,7 +176,7 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
                                 do {
                                     try managedContent.save()
                                     self.nameStack.removeFromSuperview()
-                                    print("REMOVED NAME STACK")
+                                    self.currentPlayersList.append(self.name ?? "Player")
                                 } catch {
                                     print("Could not save")
                                 }
@@ -171,7 +187,21 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
                     }
                 }
             }
+            DispatchQueue.main.async {
+                self.currentPlayerCollectionView.reloadData()
+            }
         }
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        self.currentPlayersList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlayerCollectionViewCell", for: indexPath) as! PlayerCollectionViewCell
+        cell.configure(title: currentPlayersList[indexPath.row])
+        return cell
     }
 
     
@@ -186,33 +216,6 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
         }
     }
     
-    func checkCurrentPlayers() {
-        let results = getNameAndCode()
-        let code = results[1]
-        
-        self.ref.child("groups").child(code).child("users").observe(.value, with: { (snapshot) in
-                print("HERE")
-                guard let snapChildren = snapshot.value as? [String: Any] else { return }
-                for snap in snapChildren {
-                    print(snap.key)
-                    self.currentPlayersList.append(snap.key)
-                }
-            
-            DispatchQueue.main.async {
-                self.currentPlayerCollectionView.reloadData()
-            }
-        })
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.currentPlayersList.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlayerCollectionViewCell", for: indexPath) as! PlayerCollectionViewCell
-        cell.configure(title: currentPlayersList[indexPath.row])
-        return cell
-    }
+
     
 }
