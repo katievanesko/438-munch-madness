@@ -116,41 +116,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //        return hasChild
 //    }
     
-//    from https://firebase.google.com/docs/database/ios/read-and-write
-    // Basically takes current state and returns new desired state, said helpful for incrementing counts, especially when multiple users may be voting/tapping at once
-    func voteTransactions(groupID: String){
-        let voteRef = ref.child("groups").child(groupID)
-        voteRef.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
-          if var post = currentData.value as? [String : AnyObject]
-//          , let uid = Auth.auth().currentUser?.uid
-          {
-            var votes: Dictionary<String, Bool>
-            votes = post["votes"] as? [String : Bool] ?? [:]
-            var voteCount = post["voteCount"] as? Int ?? 0
-            if let _ = votes[self.userName] {
-              // Unstar the post and remove self from stars
-                voteCount -= 1
-                votes.removeValue(forKey: self.userName)
-            } else {
-              // Star the post and add self to stars
-              voteCount += 1
-              votes[self.userName] = true
-            }
-            post["voteCount"] = voteCount as AnyObject?
-            post["votes"] = votes as AnyObject?
 
-            // Set value and report transaction success
-            currentData.value = post
-
-            return TransactionResult.success(withValue: currentData)
-          }
-          return TransactionResult.success(withValue: currentData)
-        }) { (error, committed, snapshot) in
-          if let error = error {
-            print(error.localizedDescription)
-          }
-        }
-    }
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        // Get the new view controller using segue.destination.

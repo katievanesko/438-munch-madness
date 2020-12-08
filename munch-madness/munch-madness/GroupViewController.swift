@@ -213,6 +213,7 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
         // Pass the selected object to the new view controller.
         if let target = segue.destination as? BracketViewController {
             target.restaurants = self.restaurants
+            target.gameCode = self.gamePin ?? ""
         }
     }
     

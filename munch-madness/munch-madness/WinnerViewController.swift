@@ -28,9 +28,21 @@ class WinnerViewController: UIViewController {
     
     @IBOutlet weak var websiteBtn: UIButton!
     
+    var nameText: String = ""
+    var cuisineText: String = ""
+    var ratingText: String = ""
+    var priceText: String = ""
+    
+    var restaurant: Restaurant?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        name.text = restaurant?.name
+        cuisine.text = restaurant?.categories[0].title
+        rating.text = String(describing: restaurant?.rating)
+        address.text = restaurant?.location.address1
+        
         
         // Do any additional setup after loading the view.
         print("we have a winner")
@@ -39,9 +51,14 @@ class WinnerViewController: UIViewController {
     
     @IBAction func callRestaurant(_ sender: Any) {
         // Get rest. # from API
-        var rawNum = "+1314NumberFromAPI"
+        guard let numberFromAPI = restaurant?.phone else {return}
+        var rawNum = numberFromAPI
         
         // Remove "+1" from num
+//        if rawNum.contains("+1") {
+//            let index = rawNum.firstIndex(of: "+1")!
+//            
+//        }
         
         guard let number = URL(string: "tel://" + rawNum) else { return }
         UIApplication.shared.open(number)
@@ -56,7 +73,8 @@ class WinnerViewController: UIViewController {
 //        }
         // Create new VC with webview
         let websiteVC = WebViewController()
-        websiteVC.url = "URL FEOM API"
+        guard let restUrl = restaurant?.url else {return}
+        websiteVC.url = restUrl
         
         // Segue to WebsiteVC
         navigationController?.pushViewController(websiteVC,
