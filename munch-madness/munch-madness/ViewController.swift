@@ -76,7 +76,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.joinCodeField.delegate = self
         ref = Database.database().reference()
+//        print("in viewdidload")
         watchGroupData()
+//        let apikey = "UG6WNfp3Lfp2qjXsx57mt7nFVQvUFlBJ3srqmm5JswKRZA14fQXtSc_EW73pa-n7DSmBehNHRBQtdFjKzODYG1OblRtN86hCCis6Q4-5ljCRM51uGyQ2GPMQMvG6X3Yx"
+//        let baseURL = "https://api.yelp.com/v3/businesses/Bc0odaNt6wsRPzRQQ63QEw"
+//        let url = URL(string : baseURL)
+//        var request = URLRequest(url: url!)
+//        request.setValue("Bearer \(apikey)", forHTTPHeaderField: "Authorization")
+//        request.httpMethod = "GET"
+//        URLSession.shared.dataTask(with: request) { (data, response, error) in
+//            if let error = error{
+//                print(error)
+//
+//            }
+//            print("HELLO")
+//            print(data ?? "no data")
+//            print(response ?? "response")
+//        }.resume()
         
 //        addUser()
 //        voteTransactions(groupID: gameCode!)
