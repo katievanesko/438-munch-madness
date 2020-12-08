@@ -9,8 +9,10 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import MapKit
+import CoreLocation
 
-class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, CLLocationManagerDelegate{
     
     
     @IBOutlet weak var cuisinePicker: UIPickerView!
@@ -33,6 +35,9 @@ class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPicke
     var ref: DatabaseReference!
     var restaurants:[Restaurant] = []
     
+    let locationManager = CLLocationManager()
+    var currentZipcode:String = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +53,7 @@ class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPicke
         radiusPicker.delegate = self
         ref = Database.database().reference()
 
+        getLocation()
         
     }
     
@@ -71,6 +77,39 @@ class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
     
+    func getLocation() {
+        locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+            
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: {(placemarks, error)->Void in
+
+            if (error != nil) {
+                print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
+                return
+            }
+
+            if (placemarks?.count)! > 0 {
+                let pm = placemarks?[0]
+                
+                if let containsPlacemark = pm {
+                    self.locationManager.stopUpdatingLocation()
+                    self.currentZipcode = ((containsPlacemark.postalCode != nil) ? containsPlacemark.postalCode : "") ?? ""
+                    self.location.text = self.currentZipcode
+                }
+            } else {
+                print("Problem with the data received from geocoder")
+            }
+        })
+    }
+    
+
     
     @IBAction func findRestaurants(_ sender: Any) {
 //        print("in find restaurants")
