@@ -76,7 +76,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.joinCodeField.delegate = self
         ref = Database.database().reference()
+//        print("in viewdidload")
         watchGroupData()
+//        let apikey = "UG6WNfp3Lfp2qjXsx57mt7nFVQvUFlBJ3srqmm5JswKRZA14fQXtSc_EW73pa-n7DSmBehNHRBQtdFjKzODYG1OblRtN86hCCis6Q4-5ljCRM51uGyQ2GPMQMvG6X3Yx"
+//        let baseURL = "https://api.yelp.com/v3/businesses/Bc0odaNt6wsRPzRQQ63QEw"
+//        let url = URL(string : baseURL)
+//        var request = URLRequest(url: url!)
+//        request.setValue("Bearer \(apikey)", forHTTPHeaderField: "Authorization")
+//        request.httpMethod = "GET"
+//        URLSession.shared.dataTask(with: request) { (data, response, error) in
+//            if let error = error{
+//                print(error)
+//
+//            }
+//            print("HELLO")
+//            print(data ?? "no data")
+//            print(response ?? "response")
+//        }.resume()
         
 //        addUser()
 //        voteTransactions(groupID: gameCode!)
@@ -116,41 +132,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //        return hasChild
 //    }
     
-//    from https://firebase.google.com/docs/database/ios/read-and-write
-    // Basically takes current state and returns new desired state, said helpful for incrementing counts, especially when multiple users may be voting/tapping at once
-    func voteTransactions(groupID: String){
-        let voteRef = ref.child("groups").child(groupID)
-        voteRef.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
-          if var post = currentData.value as? [String : AnyObject]
-//          , let uid = Auth.auth().currentUser?.uid
-          {
-            var votes: Dictionary<String, Bool>
-            votes = post["votes"] as? [String : Bool] ?? [:]
-            var voteCount = post["voteCount"] as? Int ?? 0
-            if let _ = votes[self.userName] {
-              // Unstar the post and remove self from stars
-                voteCount -= 1
-                votes.removeValue(forKey: self.userName)
-            } else {
-              // Star the post and add self to stars
-              voteCount += 1
-              votes[self.userName] = true
-            }
-            post["voteCount"] = voteCount as AnyObject?
-            post["votes"] = votes as AnyObject?
 
-            // Set value and report transaction success
-            currentData.value = post
-
-            return TransactionResult.success(withValue: currentData)
-          }
-          return TransactionResult.success(withValue: currentData)
-        }) { (error, committed, snapshot) in
-          if let error = error {
-            print(error.localizedDescription)
-          }
-        }
-    }
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        // Get the new view controller using segue.destination.

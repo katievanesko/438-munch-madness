@@ -63,6 +63,9 @@ struct Restaurant: Decodable {
     var review_count: Int?
     var transactions: [String?]
     var url: String?
+    var photos: [String]?
+    var hours: [Hours]?
+    var is_claimed: Bool?
 }
 
 struct Category: Decodable {
@@ -85,8 +88,44 @@ struct Location: Decodable {
     var country: String
     var state: String
     var display_address: [String?]
+    var cross_streets: String?
 }
 
 struct APIRegion: Decodable {
     var center: Coordinate
+}
+
+struct RestaurantByID: Decodable {
+    var alias: String?
+    var categories: [Category]
+    var coordinates: Coordinate
+    var display_phone: String?
+    var distance: Float
+    var id: String
+    var image_url: String?
+    var is_closed: Bool
+    var location: Location
+    var name: String
+    var phone: String?
+    var price: String
+    var rating: Double
+    var review_count: Int?
+    var transactions: [String?]
+    var url: String?
+    var photos: [String]?
+    var hours: [Hours]?
+    var is_claimed: Bool?
+}
+
+struct Hours: Decodable {
+    var open: [Times]
+    var hours_type: String
+    var is_open_now: Bool
+}
+
+struct Times: Decodable {
+    var is_overnight: Bool
+    var start: String
+    var end: String
+    var day: Int
 }
