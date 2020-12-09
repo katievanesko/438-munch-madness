@@ -60,12 +60,12 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         // fillInRestaurants()
         fillInInitial()
         
-        let seconds = 5.0
+        let seconds = 10.0
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             // Check round number
             
             let numChoices = self.restaurants.count-1 //set to appropriate value
-            print("NUM CHOICES is \(numChoices)")
+//            print("NUM CHOICES is \(numChoices)")
             if numChoices > 1 {
                 // Create new BracketViewController
                 let newBracketVC = self.storyboard?.instantiateViewController(withIdentifier: "BracketViewController") as! BracketViewController
@@ -80,7 +80,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
                   } else {
                       self.restaurants.remove(at: self.topIndex)
                   }
-                    print("restaurants after deletion \(self.restaurants)")
+//                    print("restaurants after deletion \(self.restaurants)")
                     newBracketVC.restaurants = self.restaurants
                     newBracketVC.gameCode = self.gameCode
                     newBracketVC.userName = self.userName
@@ -107,8 +107,8 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
                     let groupData = snapshot.value as? NSDictionary
                     let topCount = groupData?["topVoteCount"] as? Int ?? 0
                     let bottomCount = groupData?["bottomVoteCount"] as? Int ?? 0
-                    print("num of rests = \(self.restaurants.count)")
-                    print("self rest 1 = \(self.restaurants[1])")
+//                    print("num of rests = \(self.restaurants.count)")
+//                    print("self rest 1 = \(self.restaurants[1])")
                     if topCount > bottomCount{
                         winnerVC.restaurant = self.restaurants[0]
 //                        winnerVC.name.text = self.restaurants[0].name
@@ -241,13 +241,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
             let groupData = snapshot.value as? NSDictionary
             let topCount = groupData?["topVoteCount"] as? Int ?? 0
             let bottomCount = groupData?["bottomVoteCount"] as? Int ?? 0
-//                if topCount > bottomCount{
-//                    bottomWon = false
-//                    self.restaurants.remove(at: self.bottomIndex)
-//
-//                } else {
-//                    self.restaurants.remove(at: self.topIndex)
-//                }
+
             if topCount > bottomCount{
                 result = false
             }

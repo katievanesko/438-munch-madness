@@ -91,6 +91,14 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
 //        print(restaurants)
         let frd = FetchRestaurantData()
         DispatchQueue.global(qos: .userInitiated).async {
+            
+
+            self.ref.child("groups").child(self.gamePin!).child("query").child("price").setValue(self.prefPrice!)
+            self.ref.child("groups").child(self.gamePin!).child("query").child("location").setValue(self.prefLoc!)
+            self.ref.child("groups").child(self.gamePin!).child("query").child("radius").setValue(self.prefRadius!)
+            self.ref.child("groups").child(self.gamePin!).child("query").child("cuisine").setValue(self.prefCuisine!)
+
+                  
             frd.retrieveVenues(location: self.prefLoc!, category: self.prefCuisine!, limit: 8, sortBy: "", price: self.prefPrice!, radius: self.prefRadius!){(restList, err) in
                 if let error = err {
                     print(error)
@@ -99,6 +107,8 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
                     self.restaurants = restaurantList
                     for rest in self.restaurants {
                         self.ref.child("groups").child(self.gamePin!).child("restaurants").child(rest.id).setValue(true)
+// if we try to store all data on firebase, would try here
+//                        self.ref.child("groups").child(self.gamePin!).child("restaurants").child(rest.id).setValue(rest)
                     }
                 }
             }

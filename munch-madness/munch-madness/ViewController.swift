@@ -37,6 +37,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     print("code in VC \(code)")
                     if snapshot.hasChild(code) {
                         self.ref.child("groups").child(code).child("users").child("putUserNameHere").setValue(true)
+                        self.gameCode = code
 
                         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                             return
@@ -57,6 +58,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
                         }
                         DispatchQueue.main.async {
                             let newWaitingVC = self.storyboard?.instantiateViewController(withIdentifier: "WaitingViewController") as! WaitingViewController
+                            guard let gc = self.gameCode else { return }
+                            newWaitingVC.gameCode = gc
                             self.present(newWaitingVC, animated: false, completion: nil)
                         }
                     } else {
@@ -137,10 +140,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        // Get the new view controller using segue.destination.
 //        // Pass the selected object to the new view controller.
-//        print("preparing for segue")
-//        if let target = segue.destination as? PreferencesViewController {
-//
-//            target.gameCode = gameCode ?? ""
+//        if let target = segue.destination as? WaitingViewController {
+//            guard let gc = self.gameCode else { return }
+//            target.gameCode = gc
 //        }
 //    }
 

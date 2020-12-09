@@ -80,18 +80,7 @@ class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPicke
 ////        let r = radiusInMeters[radiusPicker.selectedRow(inComponent: 1)]
 //        let c = cuisineData[cuisinePicker.selectedRow(inComponent: 0)]
 //
-//        DispatchQueue.global(qos: .userInitiated).async {
-//            self.restaurants = frd.retrieveVenues(location: loc, category: c, limit: 10, sortBy: "", price: p)
-//            for rest in restaurants {
-//                self.ref.child("groups").child("123456").child("restaurants").child(rest.id).setValue(true)
-//            }
-            
-//            DispatchQueue.main.async {
-//
-//
-//            }
-
-//        }
+      
         
     }
     
@@ -100,12 +89,9 @@ class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPicke
             // Pass the selected object to the new view controller.
 //            print("preparing for segue")
             if let target = segue.destination as? GroupViewController {
-                print("inside if statement")
-//                let frd = FetchRestaurantData()
                 target.prefLoc = location.text ?? ""
                 target.prefPrice = priceInNumbers[ price.selectedSegmentIndex]
                 target.prefRadius=radiusInMeters[radiusPicker.selectedRow(inComponent: 0)]
-//                print(target.prefRadius)
                 target.prefCuisine = cuisineData[cuisinePicker.selectedRow(inComponent: 0)]
                         
 
