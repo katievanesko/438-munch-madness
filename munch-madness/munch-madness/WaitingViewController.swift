@@ -47,7 +47,6 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
         addNewName()
         getRestaurants()
         checkStartPressed()
-        checkCurrentPlayers()
     }
     
     @IBAction func nameFieldChanged(_ sender: Any) {
@@ -67,6 +66,22 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
     func checkStartPressed() {
         let results = getNameAndCode()
         let code = results[1]
+        
+        // Show current players
+        self.ref.child("groups").child(code).child("users").observe(.value, with: { (snapshot) in
+            guard let snapChildren = snapshot.value as? [String: Any] else { return }
+            for snap in snapChildren {
+                print(snap.key)
+                if !self.currentPlayersList.contains(snap.key){
+                    self.currentPlayersList.append(snap.key)
+                }
+            }
+            DispatchQueue.main.async {
+                self.currentPlayerCollectionView.reloadData()
+            }
+        })
+        
+        //Check if start pressed
         self.ref.child("groups").child(code).child("isPressed").observe(.value, with: { (snapshot) in
             if snapshot.exists() {
                 let newBracketVC = self.storyboard?.instantiateViewController(withIdentifier: "BracketViewController") as! BracketViewController
@@ -87,13 +102,13 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return []
         }
-
+        
         let managedContent = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "User")
-
+        
         do {
             let results = try managedContent.fetch(fetchRequest)
-            print(results)
+//            print(results)
             answers.append(results[results.count - 1].value(forKey: "name") as! String)
             answers.append(results[results.count - 1].value(forKey: "code") as! String)
             return answers
@@ -107,64 +122,64 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
         let results = getNameAndCode()
         let oldName = results[0]
         let code = results[1]
-        
         if results.count == 2 {
             if let newName = self.name {
-                DispatchQueue.global(qos: .userInitiated).async {
-                    self.ref.child("groups").child(code).child("users").child(oldName).removeValue(completionBlock: { (error, ref) in
-                        print(error ?? "success")
-                    })
+                if !self.currentPlayersList.contains(newName){
                     
-                    self.ref.child("groups").child(code).child("users").child(newName).setValue(true)
-                
-                    DispatchQueue.main.async {
-                        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-                            return
-                        }
-
-                        let managedContent = appDelegate.persistentContainer.viewContext
-                        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "User")
+                    print(self.currentPlayersList)
+                    print(newName)
+                    
+                    self.currentPlayersList.append(newName)
+                    
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        self.ref.child("groups").child(code).child("users").child(oldName).removeValue(completionBlock: { (error, ref) in
+                            print(error ?? "success")
+                        })
                         
-                        fetchRequest.predicate = NSPredicate(format: "code = %@", code)
-                
-                        do {
-                            let results = try managedContent.fetch(fetchRequest)
-                            if results.count > 0 {
-                                let object = results[0]
-                                object.setValue(self.name, forKey: "name")
-                                do {
-                                    try managedContent.save()
-                                    self.nameStack.removeFromSuperview()
-                                } catch {
-                                    print("Could not save")
-                                }
+                        self.ref.child("groups").child(code).child("users").child(newName).setValue(true)
+                        
+                        DispatchQueue.main.async {
+                            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                                return
                             }
-                        } catch {
-                            print("Could not fetch")
+                            
+                            let managedContent = appDelegate.persistentContainer.viewContext
+                            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "User")
+                            
+                            fetchRequest.predicate = NSPredicate(format: "code = %@", code)
+                            
+                            do {
+                                let results = try managedContent.fetch(fetchRequest)
+                                if results.count > 0 {
+                                    let object = results[0]
+                                    object.setValue(self.name, forKey: "name")
+                                    do {
+                                        try managedContent.save()
+                                        self.nameStack.removeFromSuperview()
+                                    } catch {
+                                        print("Could not save")
+                                    }
+                                }
+                            } catch {
+                                print("Could not fetch")
+                            }
                         }
                     }
+                } else {
+                    print("Alert should show up")
+                    let alertController = UIAlertController(title: "Name Already Exists", message: "Please choose another name", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okAction)
+                    self.present(alertController, animated: true, completion: nil)
+                    
+                    self.nameField.text = ""
+                }
+                DispatchQueue.main.async {
+                    self.currentPlayerCollectionView.reloadData()
                 }
             }
+            
         }
-    }
-    
-    func checkCurrentPlayers() {
-        let results = getNameAndCode()
-        let code = results[1]
-        
-        self.ref.child("groups").child(code).child("users").observe(.value, with: { (snapshot) in
-                print("HERE")
-                guard let snapChildren = snapshot.value as? [String: Any] else { return }
-                for snap in snapChildren {
-                    print(snap.key)
-                    self.currentPlayersList.append(snap.key)
-                }
-            
-            
-            DispatchQueue.main.async {
-                self.currentPlayerCollectionView.reloadData()
-            }
-        })
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -59,7 +59,7 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
 
         codeLabel.text = gamePin as String?
         
-        self.ref.child("groups").child(gamePin!).child("users").observe(.value, with: { (snapshot) in
+        self.ref.child("groups").child(gamePin!).child("users").observe(.childAdded, with: { (snapshot) in
             guard let snapChildren = snapshot.value as? [String: Any] else { return }
             for snap in snapChildren {
                 print(snap.key)
@@ -161,6 +161,10 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
         
         if results.count == 2 {
             if let newName = self.name {
+                if !self.currentPlayersList.contains(newName){
+                    print("Current list: \(self.currentPlayersList)")
+                    print(newName)
+                }
                 DispatchQueue.global(qos: .userInitiated).async {
                     self.ref.child("groups").child(code).child("users").child(oldName).removeValue(completionBlock: { (error, ref) in
                         print(error ?? "success")
