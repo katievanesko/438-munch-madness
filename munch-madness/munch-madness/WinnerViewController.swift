@@ -34,6 +34,7 @@ class WinnerViewController: UIViewController {
     var priceText: String = ""
     
     var restaurant: Restaurant?
+    var passedImage: UIImage?
     
     
     override func viewDidLoad() {
@@ -42,6 +43,7 @@ class WinnerViewController: UIViewController {
         cuisine.text = restaurant?.categories[0].title
         rating.text = String(describing: restaurant?.rating)
         address.text = restaurant?.location.address1
+        image.image = passedImage
         
         
         // Do any additional setup after loading the view.

@@ -23,6 +23,7 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
     var prefPrice: String?
     var prefCuisine: String?
     var currentPlayersList:[String] = []
+    var imageCache: [UIImage] = []
     
     @IBOutlet weak var codeLabel: UILabel!
     
@@ -107,6 +108,22 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
                     self.restaurants = restaurantList
                     for rest in self.restaurants {
                         self.ref.child("groups").child(self.gamePin!).child("restaurants").child(rest.id).setValue(true)
+                        
+                        if let imagePath = rest.image_url{
+                            let url = URL(string:imagePath)
+                            
+                            let data = try? Data(contentsOf: url!)
+                            let image = UIImage(data: data!)
+                            self.imageCache.append(image!)
+                            print ("image added")
+                            
+                            
+                        } else {
+                            self.imageCache.append(UIImage(named: "NullPoster")!)
+                            print("null poster added")
+                        }
+                            
+                        
 // if we try to store all data on firebase, would try here
 //                        self.ref.child("groups").child(self.gamePin!).child("restaurants").child(rest.id).setValue(rest)
                     }
@@ -228,6 +245,7 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
         if let target = segue.destination as? BracketViewController {
             target.restaurants = self.restaurants
             target.gameCode = self.gamePin ?? ""
+            target.imageCache = self.imageCache
         }
     }
     

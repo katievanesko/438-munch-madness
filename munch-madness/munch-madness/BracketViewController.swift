@@ -35,6 +35,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
     var topIndex: Int = 0
     var bottomIndex: Int = 1
     var nextIndex: Int = 2
+    var imageCache: [UIImage] = []
 
     //add radius/distance and price
     
@@ -60,7 +61,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         // fillInRestaurants()
         fillInInitial()
         
-        let seconds = 10.0
+        let seconds = 5.0
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             // Check round number
             
@@ -75,15 +76,17 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
                   let topCount = groupData?["topVoteCount"] as? Int ?? 0
                   let bottomCount = groupData?["bottomVoteCount"] as? Int ?? 0
                   if topCount > bottomCount{
-                      self.restaurants.remove(at: self.bottomIndex)
-
+                    self.restaurants.remove(at: self.bottomIndex)
+                    self.imageCache.remove(at: self.bottomIndex)
                   } else {
-                      self.restaurants.remove(at: self.topIndex)
+                    self.restaurants.remove(at: self.topIndex)
+                    self.imageCache.remove(at: self.topIndex)
                   }
 //                    print("restaurants after deletion \(self.restaurants)")
                     newBracketVC.restaurants = self.restaurants
                     newBracketVC.gameCode = self.gameCode
                     newBracketVC.userName = self.userName
+                    newBracketVC.imageCache = self.imageCache
                     self.clearVotes()
                     print("next round!")
                     self.present(newBracketVC, animated: false, completion: nil)
@@ -111,36 +114,19 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
 //                    print("self rest 1 = \(self.restaurants[1])")
                     if topCount > bottomCount{
                         winnerVC.restaurant = self.restaurants[0]
-//                        winnerVC.name.text = self.restaurants[0].name
-//                        winnerVC.cuisine.text = self.restaurants[0].categories[0].title
-//                        winnerVC.rating.text = String(describing: self.restaurants[0].rating)
-//                        winnerVC.price.text = self.restaurants[0].price
-//                        winnerVC.address.text = self.restaurants[0].location.address1
+                        winnerVC.passedImage = self.imageCache[0]
+
                     } else {
                         winnerVC.restaurant = self.restaurants[1]
-//                        winnerVC.nameText = self.restaurants[1].name
-//                        winnerVC.cuisineText = self.restaurants[1].categories[1].title
-//                        winnerVC.priceText = self.restaurants[1].price
-//                        winnerVC.rating.text = String(describing: self.restaurants[1].rating)
-//
-//                        winnerVC.name.text = self.restaurants[1].name
-//                        winnerVC.cuisine.text = self.restaurants[1].categories[1].title
-//                        winnerVC.price.text = self.restaurants[1].price
-//                        winnerVC.address.text = self.restaurants[1].location.address1
+                        winnerVC.passedImage = self.imageCache[1]
+
+
                     }
                     self.present(winnerVC, animated: true, completion: nil)
                   }) { (error) in
                     print(error.localizedDescription)
                 }
-                //set all attributes for VC from API
-//                winnerVC.image.image =  UIImage(systemName: "pencil")// Change to not that
-//                winnerVC.name.text = ""
-//                winnerVC.cuisine.text = ""
-//                winnerVC.rating.text = ""
-//                winnerVC.price.text = ""
-//                winnerVC.address.text = ""
-                
-//                self.present(winnerVC, animated: true, completion: nil)
+
             }
         }
     }
@@ -169,6 +155,8 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
             topName.text = restaurants[topIndex].name
             topRating.text = String(describing: restaurants[topIndex].rating)
             topCuisine.text! = restaurants[topIndex].categories[0].title
+            print("topIndex is \(topIndex)")
+            topImage.image = imageCache[topIndex]
 
             
             //can have multiple categories, so may want to consider a way to append more than one!
@@ -179,6 +167,9 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
             bottomName.text = restaurants[bottomIndex].name
             bottomRating.text = String(describing: restaurants[bottomIndex].rating)
             bottomCuisine.text! = restaurants[bottomIndex].categories[0].title
+            print("bottomIndex is \(bottomIndex)")
+
+            bottomImage.image = imageCache[bottomIndex]
 //            for cat in restaurants[1].categories {
 //                bottomCuisine.text! += cat.title + " "
 //            }

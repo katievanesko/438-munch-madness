@@ -20,6 +20,7 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
     var currentPlayersList:[String] = []
     var gameCode: String?
     var restaurants: [Restaurant] = []
+    var imageCache: [UIImage] = []
 //    var userName: String = "guest"
     
     @IBOutlet weak var nameStack: UIStackView!
@@ -91,6 +92,7 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
                 
                 guard let gc = self.gameCode else { return }
                 newBracketVC.gameCode = gc
+                newBracketVC.imageCache = self.imageCache
                 self.present(newBracketVC, animated: false, completion: nil)
             }
         })
@@ -209,6 +211,17 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
                         }
                         if let restaurantList = restList {
                             self.restaurants = restaurantList
+                            for restaurant in self.restaurants {
+                                if let imagePath = restaurant.image_url{
+                                    let url = URL(string:imagePath)
+                                    let data = try? Data(contentsOf: url!)
+                                    let image = UIImage(data: data!)
+                                    self.imageCache.append(image!)
+                                } else {
+                                    self.imageCache.append(UIImage(named: "NullPoster")!)
+                                }
+                                
+                            }
                         }
                         
                     }
