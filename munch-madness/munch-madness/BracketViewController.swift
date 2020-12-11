@@ -61,12 +61,10 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         // fillInRestaurants()
         fillInInitial()
         
-        let seconds = 5.0
+        let seconds = 2.0
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             // Check round number
-            
-            let numChoices = self.restaurants.count-1 //set to appropriate value
-//            print("NUM CHOICES is \(numChoices)")
+            let numChoices = self.restaurants.count-1 
             if numChoices > 1 {
                 // Create new BracketViewController
                 let newBracketVC = self.storyboard?.instantiateViewController(withIdentifier: "BracketViewController") as! BracketViewController
@@ -145,7 +143,6 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
             topName.text = restaurants[topIndex].name
             topRating.text = String(describing: restaurants[topIndex].rating)
             topCuisine.text! = restaurants[topIndex].categories[0].title
-            print("topIndex is \(topIndex)")
             topImage.image = imageCache[topIndex]
 
             
@@ -157,8 +154,8 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
             bottomName.text = restaurants[bottomIndex].name
             bottomRating.text = String(describing: restaurants[bottomIndex].rating)
             bottomCuisine.text! = restaurants[bottomIndex].categories[0].title
-            print("bottomIndex is \(bottomIndex)")
-
+            print("Restaurant count is \(restaurants.count) and image count is \(imageCache.count)")
+            print(imageCache)
             bottomImage.image = imageCache[bottomIndex] //GOT ERROR HERE FOR INDEX OUT OF RANGE!!
 //            for cat in restaurants[1].categories {
 //                bottomCuisine.text! += cat.title + " "

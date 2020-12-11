@@ -137,21 +137,43 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
                     print(error)
                 }
                 if let restaurantList = restList {
+                    if restaurantList.count == 0 {
+                        DispatchQueue.main.async {
+                            //ALERT THAT NO RESTAURANTS EXIST
+                            let alertController = UIAlertController(title: "No restaurants found for given parameters", message: "Please adjust search parameters", preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "OK", style: .default, handler: {_ in
+                                //SEND BACK TO PREFERENCESVC
+                                self.presentingViewController?.dismiss(animated: true, completion: nil)
+                            })
+                            alertController.addAction(okAction)
+                            self.present(alertController, animated: true, completion: nil)
+                        }
+                    }
                     self.restaurants = restaurantList
+                    let nullImg = UIImage(named: "NullPoster")
+                    var count = 0
                     for rest in self.restaurants {
+                        print("rest #\(count)")
+                        count = count + 1
                         self.ref.child("groups").child(self.gamePin!).child("restaurants").child(rest.id).setValue(true)
                         
                         if let imagePath = rest.image_url{
                             let url = URL(string:imagePath)
                             
-                            let data = try? Data(contentsOf: url!)
-                            let image = UIImage(data: data!)
-                            self.imageCache.append(image!)
-                            print ("image added")
-                            
-                            
+                            if let data = try? Data(contentsOf: url!){
+                                if let image = UIImage(data: data) {
+                                    self.imageCache.append(image)
+                                    print ("image added")
+                                } else {
+                                    self.imageCache.append(nullImg!)
+                                    print("null poster added")
+                                }
+                            } else {
+                                self.imageCache.append(nullImg!)
+                                print("null poster added")
+                            }
                         } else {
-                            self.imageCache.append(UIImage(named: "NullPoster")!)
+                            self.imageCache.append(nullImg!)
                             print("null poster added")
                         }
                             
