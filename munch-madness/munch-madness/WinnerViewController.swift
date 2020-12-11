@@ -91,4 +91,11 @@ class WinnerViewController: UIViewController {
         animated: true)
     }
     
+    
+    @IBAction func returnToStart(_ sender: Any) {
+        let startVC = self.storyboard?.instantiateViewController(withIdentifier: "StartViewController") as! ViewController
+        startVC.modalPresentationStyle = .fullScreen
+        self.present(startVC, animated: true, completion: nil)
+        
+    }
 }

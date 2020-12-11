@@ -90,21 +90,12 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
                     self.clearVotes()
                     print("next round!")
                     self.present(newBracketVC, animated: false, completion: nil)
-                  
-
                 }) { (error) in
                   print(error.localizedDescription)
               }
-                
-                
-                
-                
             }
             else {
                 // Move to WinnerVC
-                
-                print("winner!")
-                
                 self.ref.child("groups").child(self.gameCode).observeSingleEvent(of: .value, with: { (snapshot) in
                     let winnerVC = self.storyboard?.instantiateViewController(withIdentifier: "WinnerViewController") as! WinnerViewController
                     let groupData = snapshot.value as? NSDictionary
@@ -119,9 +110,8 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
                     } else {
                         winnerVC.restaurant = self.restaurants[1]
                         winnerVC.passedImage = self.imageCache[1]
-
-
                     }
+                    winnerVC.modalPresentationStyle = .fullScreen
                     self.present(winnerVC, animated: true, completion: nil)
                   }) { (error) in
                     print(error.localizedDescription)
@@ -169,7 +159,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
             bottomCuisine.text! = restaurants[bottomIndex].categories[0].title
             print("bottomIndex is \(bottomIndex)")
 
-            bottomImage.image = imageCache[bottomIndex]
+            bottomImage.image = imageCache[bottomIndex] //GOT ERROR HERE FOR INDEX OUT OF RANGE!!
 //            for cat in restaurants[1].categories {
 //                bottomCuisine.text! += cat.title + " "
 //            }

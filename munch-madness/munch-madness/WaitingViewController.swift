@@ -107,6 +107,7 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
                 guard let gc = self.gameCode else { return }
                 newBracketVC.gameCode = gc
                 newBracketVC.imageCache = self.imageCache
+                newBracketVC.modalPresentationStyle = .fullScreen
                 self.present(newBracketVC, animated: false, completion: nil)
             }
         })

@@ -60,6 +60,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                             let newWaitingVC = self.storyboard?.instantiateViewController(withIdentifier: "WaitingViewController") as! WaitingViewController
                             guard let gc = self.gameCode else { return }
                             newWaitingVC.gameCode = gc
+                            newWaitingVC.modalPresentationStyle = .fullScreen
                             self.present(newWaitingVC, animated: false, completion: nil)
                         }
                     } else {
