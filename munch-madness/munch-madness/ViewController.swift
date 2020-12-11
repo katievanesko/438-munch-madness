@@ -38,13 +38,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     if snapshot.hasChild(code) {
                         self.ref.child("groups").child(code).child("users").child("putUserNameHere").setValue(true)
                         self.gameCode = code
-
+                        
                         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                             return
                         }
-
+                        
                         let managedContent = appDelegate.persistentContainer.viewContext
-
+                        
                         if let entity = NSEntityDescription.entity(forEntityName: "User", in: managedContent) {
                             let currentUser = NSManagedObject(entity: entity, insertInto: managedContent)
                             currentUser.setValue("putUserNameHere", forKey: "name")
@@ -66,13 +66,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
                         DispatchQueue.main.async {
                             let alert = UIAlertController(title: "Group Code Not Found", message: "Please try again!", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { alert in }))
-
+                            
                             self.present(alert, animated: true, completion: nil)
                         }
                     }
                 }
             })
-    }
+        }
     }
     
     override func viewDidLoad() {
@@ -112,7 +112,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         ref.observe(.value, with: {
             snapshot in
             
-//            print("\(snapshot.key)-> \(String(describing:snapshot.value))")
+            print("\(snapshot.key)-> \(String(describing:snapshot.value))")
         })
     }
     
