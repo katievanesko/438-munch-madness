@@ -18,6 +18,10 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
     var name: String?
     var ref: DatabaseReference!
     var currentPlayersList:[String] = []
+    var gameCode: String?
+    var restaurants: [Restaurant] = []
+    var imageCache: [UIImage] = []
+//    var userName: String = "guest"
     
     @IBOutlet weak var nameStack: UIStackView!
     
@@ -40,6 +44,9 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
         currentPlayerCollectionView.delegate = self
         currentPlayerCollectionView.dataSource = self
         currentPlayerCollectionView.register(PlayerCollectionViewCell.nib(), forCellWithReuseIdentifier: "PlayerCollectionViewCell")
+        name = generateGuestUsername(len: 4)
+        addNewName()
+        getRestaurants()
         checkStartPressed()
     }
     
@@ -55,6 +62,7 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
     
     @IBAction func enterPressed(_ sender: Any) {
         addNewName()
+        self.nameStack.removeFromSuperview()
     }
     
     func checkStartPressed() {
@@ -62,13 +70,12 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
         let code = results[1]
         
         // Show current players
-        self.ref.child("groups").child(code).child("users").observe(.value, with: { (snapshot) in
+        self.ref.child("groups").child(code).child("users").observe(.childChanged, with: { (snapshot) in
             guard let snapChildren = snapshot.value as? [String: Any] else { return }
+            self.currentPlayersList = []
             for snap in snapChildren {
                 print(snap.key)
-                if !self.currentPlayersList.contains(snap.key){
-                    self.currentPlayersList.append(snap.key)
-                }
+                self.currentPlayersList.append(snap.key)
             }
             DispatchQueue.main.async {
                 self.currentPlayerCollectionView.reloadData()
@@ -79,6 +86,13 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
         self.ref.child("groups").child(code).child("isPressed").observe(.value, with: { (snapshot) in
             if snapshot.exists() {
                 let newBracketVC = self.storyboard?.instantiateViewController(withIdentifier: "BracketViewController") as! BracketViewController
+                
+                newBracketVC.restaurants = self.restaurants
+                newBracketVC.userName = self.name ?? "guest"
+                
+                guard let gc = self.gameCode else { return }
+                newBracketVC.gameCode = gc
+                newBracketVC.imageCache = self.imageCache
                 self.present(newBracketVC, animated: false, completion: nil)
             }
         })
@@ -143,7 +157,7 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
                                     object.setValue(self.name, forKey: "name")
                                     do {
                                         try managedContent.save()
-                                        self.nameStack.removeFromSuperview()
+//                                        self.nameStack.removeFromSuperview()
                                     } catch {
                                         print("Could not save")
                                     }
@@ -179,5 +193,71 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
         cell.configure(title: currentPlayersList[indexPath.row])
         return cell
     }
+    
+    
+    func getRestaurants(){
+            let frd = FetchRestaurantData()
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.ref.child("groups").child(self.gameCode!).child("query").observeSingleEvent(of: .value, with: { (snapshot) in
+                    let queryData = snapshot.value as? NSDictionary
+                    guard let qd = queryData else { return }
+                    let price = qd["price"] as! String
+                    let cuisine = qd["cuisine"] as! String
+                    let radius = qd["radius"] as! Int
+                    let location = qd["location"] as! String
+                    frd.retrieveVenues(location: location, category: cuisine, limit: 8, sortBy: "", price: price, radius: radius){(restList, err) in
+                        if let error = err {
+                            print(error)
+                        }
+                        if let restaurantList = restList {
+                            self.restaurants = restaurantList
+                            for restaurant in self.restaurants {
+                                if let imagePath = restaurant.image_url{
+                                    let url = URL(string:imagePath)
+                                    let data = try? Data(contentsOf: url!)
+                                    let image = UIImage(data: data!)
+                                    self.imageCache.append(image!)
+                                } else {
+                                    self.imageCache.append(UIImage(named: "NullPoster")!)
+                                }
+                                
+                            }
+                        }
+                        
+                    }
+                    
+
+                  }) { (error) in
+                    print(error.localizedDescription)
+                }
+
+            }
+        }
+    
+    func generateGuestUsername(len: Int) -> String{
+    
+        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let randomString : NSMutableString = NSMutableString(capacity: len)
+        for _ in 1...len{
+            let length = UInt32 (letters.length)
+            let rand = arc4random_uniform(length)
+            randomString.appendFormat("%C", letters.character(at: Int(rand)))
+        }
+        return ("guest_" + (randomString as String)) as String
+    }
+    
+    // MARK: - Navigation
+
+//    // In a storyboard-based application, you will often want to do a little preparation before navigation
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        // Get the new view controller using segue.destination.
+//        // Pass the selected object to the new view controller.
+//        if let target = segue.destination as? BracketViewController {
+//            target.restaurants = self.restaurants
+//
+//            guard let gc = self.gameCode else { return }
+//            target.gameCode = gc
+//        }
+//    }
     
 }

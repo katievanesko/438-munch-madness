@@ -34,6 +34,7 @@ class WinnerViewController: UIViewController {
     var priceText: String = ""
     
     var restaurant: Restaurant?
+    var passedImage: UIImage?
     
     
     override func viewDidLoad() {
@@ -42,6 +43,8 @@ class WinnerViewController: UIViewController {
         cuisine.text = restaurant?.categories[0].title
         rating.text = String(describing: restaurant?.rating)
         address.text = restaurant?.location.address1
+        price.text = restaurant?.price
+        image.image = passedImage
         
         
         // Do any additional setup after loading the view.
@@ -52,15 +55,22 @@ class WinnerViewController: UIViewController {
     @IBAction func callRestaurant(_ sender: Any) {
         // Get rest. # from API
         guard let numberFromAPI = restaurant?.phone else {return}
-        var rawNum = numberFromAPI
-        
+        let arrNumber = Array(numberFromAPI)
+        let editedNum = String(arrNumber[2..<12])
+        print("editedNum is \(editedNum)")
         // Remove "+1" from num
 //        if rawNum.contains("+1") {
 //            let index = rawNum.firstIndex(of: "+1")!
 //            
 //        }
         
-        guard let number = URL(string: "tel://" + rawNum) else { return }
+//        if let phoneURL = NSURL(string: "telprompt:\(phoneNumber)") {
+//            if UIApplication.sharedApplication().canOpenURL(phoneURL) {
+//                UIApplication.sharedApplication().openURL(phoneURL)
+//            }
+//        }
+        
+        guard let number = URL(string: "tel://" + editedNum) else { return }
         UIApplication.shared.open(number)
     }
     

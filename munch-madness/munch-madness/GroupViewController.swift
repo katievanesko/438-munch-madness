@@ -23,6 +23,7 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
     var prefPrice: String?
     var prefCuisine: String?
     var currentPlayersList:[String] = []
+    var imageCache: [UIImage] = []
     
     @IBOutlet weak var codeLabel: UILabel!
     
@@ -59,8 +60,9 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
 
         codeLabel.text = gamePin as String?
         
-        self.ref.child("groups").child(gamePin!).child("users").observe(.childAdded, with: { (snapshot) in
+        self.ref.child("groups").child(gamePin!).child("users").observe(.value, with: { (snapshot) in
             guard let snapChildren = snapshot.value as? [String: Any] else { return }
+            self.currentPlayersList = []
             for snap in snapChildren {
                 print(snap.key)
                 self.currentPlayersList.append(snap.key)
@@ -91,6 +93,14 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
 //        print(restaurants)
         let frd = FetchRestaurantData()
         DispatchQueue.global(qos: .userInitiated).async {
+            
+
+            self.ref.child("groups").child(self.gamePin!).child("query").child("price").setValue(self.prefPrice!)
+            self.ref.child("groups").child(self.gamePin!).child("query").child("location").setValue(self.prefLoc!)
+            self.ref.child("groups").child(self.gamePin!).child("query").child("radius").setValue(self.prefRadius!)
+            self.ref.child("groups").child(self.gamePin!).child("query").child("cuisine").setValue(self.prefCuisine!)
+
+                  
             frd.retrieveVenues(location: self.prefLoc!, category: self.prefCuisine!, limit: 8, sortBy: "", price: self.prefPrice!, radius: self.prefRadius!){(restList, err) in
                 if let error = err {
                     print(error)
@@ -99,6 +109,24 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
                     self.restaurants = restaurantList
                     for rest in self.restaurants {
                         self.ref.child("groups").child(self.gamePin!).child("restaurants").child(rest.id).setValue(true)
+                        
+                        if let imagePath = rest.image_url{
+                            let url = URL(string:imagePath)
+                            
+                            let data = try? Data(contentsOf: url!)
+                            let image = UIImage(data: data!)
+                            self.imageCache.append(image!)
+                            print ("image added")
+                            
+                            
+                        } else {
+                            self.imageCache.append(UIImage(named: "NullPoster")!)
+                            print("null poster added")
+                        }
+                            
+                        
+// if we try to store all data on firebase, would try here
+//                        self.ref.child("groups").child(self.gamePin!).child("restaurants").child(rest.id).setValue(rest)
                     }
                 }
             }
@@ -218,6 +246,7 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
         if let target = segue.destination as? BracketViewController {
             target.restaurants = self.restaurants
             target.gameCode = self.gamePin ?? ""
+            target.imageCache = self.imageCache
         }
     }
     
