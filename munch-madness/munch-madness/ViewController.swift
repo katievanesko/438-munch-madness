@@ -64,6 +64,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     print("code in VC \(code)")
                     if snapshot.hasChild(code) {
                         self.ref.child("groups").child(code).child("users").child("putUserNameHere").setValue(true)
+
                         self.gameCode = code
                         
                         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -113,7 +114,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         //this prints what is in the database
 //        ref.observe(.value, with: {
 //            snapshot in
-            
+//            
 //            print("\(snapshot.key)-> \(String(describing:snapshot.value))")
 //        })
     }

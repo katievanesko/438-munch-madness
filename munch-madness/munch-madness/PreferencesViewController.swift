@@ -129,7 +129,7 @@ class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPicke
         for c in location {
             if c == " " {
                 newLocation += "%20"
-            } else if c.isLetter {
+            } else if c.isLetter || c.isNumber {
                 newLocation += String(c)
             } else {
                 newLocation += ""

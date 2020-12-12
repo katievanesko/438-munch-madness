@@ -11,9 +11,8 @@ import Firebase
 
 class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
 
-//    left swipe
     @IBOutlet weak var topName: UILabel!
-//    right swipe
+    
     @IBOutlet weak var bottomName: UILabel!
     
     @IBOutlet weak var topImage: UIImageView!
@@ -37,6 +36,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
     var nextIndex: Int = 2
     var imageCache: [UIImage] = []
     var startTime: DispatchTime = DispatchTime.now()
+    var bottomStays: Bool = false
     
     var currTopVotes: Int = 0
     var currBottomVotes: Int = 0
@@ -69,6 +69,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         watchValues()
         let seconds = 5.0
         self.startTime = DispatchTime.now()
+        print("restaurant \(self.restaurants)")
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             // Check round number
             let numChoices = self.restaurants.count-1 
@@ -85,6 +86,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
                          print("in bottom wins")
                          self.restaurants.remove(at: 0)
                          self.imageCache.remove(at: 0)
+                        self.bottomStays = true
                    } else {
                         if self.currTopTime < self.currBottomTime {
                              print("in top time wins")
@@ -96,6 +98,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
                              
                              self.restaurants.remove(at: 0)
                              self.imageCache.remove(at: 0)
+                            self.bottomStays = true
                          }
                      }
 //                  let groupData = snapshot.value as? NSDictionary
@@ -128,6 +131,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
                     newBracketVC.gameCode = self.gameCode
                     newBracketVC.userName = self.userName
                     newBracketVC.imageCache = self.imageCache
+                    newBracketVC.bottomStays = self.bottomStays
                     self.clearVotes()
                     print("next round!")
                     self.present(newBracketVC, animated: false, completion: nil)
@@ -213,6 +217,11 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func fillInInitial(){
         if restaurants.count > 1 {
+//            if bottomStays {
+//                topIndex = 1
+//                bottomIndex = 0
+//                bottomStays = false
+//            }
             topName.text = restaurants[topIndex].name
             topRating.text = String(describing: restaurants[topIndex].rating)
             topCuisine.text! = restaurants[topIndex].categories[0].title
