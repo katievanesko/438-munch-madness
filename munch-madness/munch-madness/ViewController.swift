@@ -109,11 +109,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //          // ...
 //        })
         //this prints what is in the database
-        ref.observe(.value, with: {
-            snapshot in
+//        ref.observe(.value, with: {
+//            snapshot in
             
 //            print("\(snapshot.key)-> \(String(describing:snapshot.value))")
-        })
+//        })
     }
     
     // we should move this to somewhere else--maybe WaitingViewController?

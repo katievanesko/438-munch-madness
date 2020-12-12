@@ -31,6 +31,7 @@ class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     var radiusInMeters = [40000, 1600, 8000, 16000, 24000]
     var priceInNumbers = ["1,2,3,4","1", "2", "3","4"]
+    var cuisineForURL = ["any","tradamerican","breakfast_brunch","burgers", "chinese","italian", "japanese","korean" ,"mexican","pizza","sandwiches","seafood"]
     
     var ref: DatabaseReference!
     var restaurants:[Restaurant] = []
@@ -131,7 +132,7 @@ class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPicke
                 target.prefLoc = location.text ?? ""
                 target.prefPrice = priceInNumbers[ price.selectedSegmentIndex]
                 target.prefRadius=radiusInMeters[radiusPicker.selectedRow(inComponent: 0)]
-                target.prefCuisine = cuisineData[cuisinePicker.selectedRow(inComponent: 0)]
+                target.prefCuisine = cuisineForURL[cuisinePicker.selectedRow(inComponent: 0)]
                         
 
                 
