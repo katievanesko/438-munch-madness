@@ -57,38 +57,26 @@ class WinnerViewController: UIViewController {
         let arrNumber = Array(numberFromAPI)
         let editedNum = String(arrNumber[2..<12])
         print("editedNum is \(editedNum)")
-        // Remove "+1" from num
-//        if rawNum.contains("+1") {
-//            let index = rawNum.firstIndex(of: "+1")!
-//            
-//        }
         
-//        if let phoneURL = NSURL(string: "telprompt:\(phoneNumber)") {
-//            if UIApplication.sharedApplication().canOpenURL(phoneURL) {
-//                UIApplication.sharedApplication().openURL(phoneURL)
-//            }
-//        }
-        
-        guard let number = URL(string: "tel://" + editedNum) else { return }
-        UIApplication.shared.open(number)
+        if let phoneCallURL = URL(string: "tel://\(editedNum)") {
+          let application:UIApplication = UIApplication.shared
+          if (application.canOpenURL(phoneCallURL)) {
+              application.open(phoneCallURL, options: [:], completionHandler: nil)
+          }
+        }
     }
     
     
     @IBAction func visitWebsite(_ sender: Any) {
         // Get rest. website from API
-//        guard let url = URL(string: "URL FROM API") else {
-//            print("Could not access website url")
-//            return
-//        }
+        guard let restUrl = restaurant?.url else {return}
+        
         // Create new VC with webview
         let websiteVC = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
-        guard let restUrl = restaurant?.url else {return}
         websiteVC.url = restUrl
-        print(restUrl)
-        // Segue to WebsiteVC
+        
         self.present(websiteVC, animated: true, completion:  nil)
     }
-    
     
     @IBAction func returnToStart(_ sender: Any) {
         let startVC = self.storyboard?.instantiateViewController(withIdentifier: "StartViewController") as! ViewController
