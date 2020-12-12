@@ -67,7 +67,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         // fillInRestaurants()
         fillInInitial()
         watchValues()
-        let seconds = 5.0
+        let seconds = 2.0
         self.startTime = DispatchTime.now()
         print("restaurant \(self.restaurants)")
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {

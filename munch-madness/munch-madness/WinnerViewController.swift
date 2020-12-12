@@ -51,7 +51,6 @@ class WinnerViewController: UIViewController {
         print("we have a winner")
     }
     
-    
     @IBAction func callRestaurant(_ sender: Any) {
         // Get rest. # from API
         guard let numberFromAPI = restaurant?.phone else {return}
@@ -82,13 +81,12 @@ class WinnerViewController: UIViewController {
 //            return
 //        }
         // Create new VC with webview
-        let websiteVC = WebViewController()
+        let websiteVC = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
         guard let restUrl = restaurant?.url else {return}
         websiteVC.url = restUrl
-        
+        print(restUrl)
         // Segue to WebsiteVC
-        navigationController?.pushViewController(websiteVC,
-        animated: true)
+        self.present(websiteVC, animated: true, completion:  nil)
     }
     
     
@@ -96,6 +94,5 @@ class WinnerViewController: UIViewController {
         let startVC = self.storyboard?.instantiateViewController(withIdentifier: "StartViewController") as! ViewController
         startVC.modalPresentationStyle = .fullScreen
         self.present(startVC, animated: true, completion: nil)
-        
     }
 }
