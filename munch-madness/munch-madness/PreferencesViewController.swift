@@ -124,12 +124,26 @@ class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPicke
         
     }
     
+    func checkForPunctuation(_ location: String) -> String {
+        var newLocation = ""
+        for c in location {
+            if c == " " {
+                newLocation += "%20"
+            } else if c.isLetter {
+                newLocation += String(c)
+            } else {
+                newLocation += ""
+            }
+        }
+        return newLocation
+    }
+    
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             // Get the new view controller using segue.destination.
             // Pass the selected object to the new view controller.
 //            print("preparing for segue")
             if let target = segue.destination as? GroupViewController {
-                target.prefLoc = location.text ?? ""
+                target.prefLoc = checkForPunctuation(location.text ?? "")
                 target.prefPrice = priceInNumbers[ price.selectedSegmentIndex]
                 target.prefRadius=radiusInMeters[radiusPicker.selectedRow(inComponent: 0)]
                 target.prefCuisine = cuisineForURL[cuisinePicker.selectedRow(inComponent: 0)]

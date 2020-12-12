@@ -21,6 +21,8 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
     var gameCode: String?
     var restaurants: [Restaurant] = []
     var imageCache: [UIImage] = []
+    var defaultGuestName:String?
+    var copyOfExisting = false
 //    var userName: String = "guest"
     
     @IBOutlet weak var nameStack: UIStackView!
@@ -45,6 +47,7 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
         currentPlayerCollectionView.dataSource = self
         currentPlayerCollectionView.register(PlayerCollectionViewCell.nib(), forCellWithReuseIdentifier: "PlayerCollectionViewCell")
         name = generateGuestUsername(len: 4)
+        defaultGuestName = name
         addNewName()
         getRestaurants()
         checkStartPressed()
@@ -62,6 +65,9 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
     
     @IBAction func enterPressed(_ sender: Any) {
         addNewName()
+        if !self.copyOfExisting {
+            self.nameStack.removeFromSuperview()
+        }
     }
     
     func checkStartPressed() {
@@ -69,14 +75,22 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
         let code = results[1]
         
         // Show current players
-        self.ref.child("groups").child(code).child("users").observe(.value, with: { (snapshot) in
-            guard let snapChildren = snapshot.value as? [String: Any] else { return }
-            for snap in snapChildren {
-                print(snap.key)
-                if !self.currentPlayersList.contains(snap.key){
-                    self.currentPlayersList.append(snap.key)
+        self.ref.child("groups").child(code).child("users").observe(.childAdded, with: { (snapshot) in
+            print("snapshot key \(snapshot.key) in Waiting VC")
+            if !self.currentPlayersList.contains(snapshot.key){
+                self.currentPlayersList.append(snapshot.key)
+                
+                DispatchQueue.main.async {
+                    self.currentPlayerCollectionView.reloadData()
                 }
             }
+        })
+        self.ref.child("groups").child(code).child("users").observe(.childRemoved, with: { (snapshot) in
+            print("removing \(snapshot.key) in WaitingVC")
+            if let index = self.currentPlayersList.firstIndex(of: snapshot.key){
+                 self.currentPlayersList.remove(at: index)
+            }
+        
             DispatchQueue.main.async {
                 self.currentPlayerCollectionView.reloadData()
             }
@@ -93,6 +107,7 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
                 guard let gc = self.gameCode else { return }
                 newBracketVC.gameCode = gc
                 newBracketVC.imageCache = self.imageCache
+                newBracketVC.modalPresentationStyle = .fullScreen
                 self.present(newBracketVC, animated: false, completion: nil)
             }
         })
@@ -123,18 +138,18 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
     func addNewName() {
         let results = getNameAndCode()
         let oldName = results[0]
+//        let oldName = name
         let code = results[1]
         if results.count == 2 {
             if let newName = self.name {
                 if !self.currentPlayersList.contains(newName){
-                    
-                    print(self.currentPlayersList)
-                    print(newName)
-                    
-                    self.currentPlayersList.append(newName)
-                    
+                    self.copyOfExisting = false
                     DispatchQueue.global(qos: .userInitiated).async {
+                        
                         self.ref.child("groups").child(code).child("users").child(oldName).removeValue(completionBlock: { (error, ref) in
+                            print(error ?? "success")
+                        })
+                        self.ref.child("groups").child(code).child("users").child(self.defaultGuestName!).removeValue(completionBlock: { (error, ref) in
                             print(error ?? "success")
                         })
                         
@@ -157,7 +172,7 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
                                     object.setValue(self.name, forKey: "name")
                                     do {
                                         try managedContent.save()
-                                        self.nameStack.removeFromSuperview()
+                                        
                                     } catch {
                                         print("Could not save")
                                     }
@@ -168,7 +183,7 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
                         }
                     }
                 } else {
-                    print("Alert should show up")
+                    self.copyOfExisting = true
                     let alertController = UIAlertController(title: "Name Already Exists", message: "Please choose another name", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alertController.addAction(okAction)

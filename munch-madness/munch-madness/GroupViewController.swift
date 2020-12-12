@@ -43,10 +43,12 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
         currentPlayerCollectionView.delegate = self
         currentPlayerCollectionView.dataSource = self
         currentPlayerCollectionView.register(PlayerCollectionViewCell.nib(), forCellWithReuseIdentifier: "PlayerCollectionViewCell")
+               
         
         addGroup()
 //        print("prefPrice is \(prefPrice)")
         addRestaurants()
+        addNewName()
     }
     
     @IBAction func startPressed(_ sender: Any) {
@@ -60,13 +62,43 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
 
         codeLabel.text = gamePin as String?
         
-        self.ref.child("groups").child(gamePin!).child("users").observe(.childAdded, with: { (snapshot) in
-            guard let snapChildren = snapshot.value as? [String: Any] else { return }
-            for snap in snapChildren {
-                print(snap.key)
-                self.currentPlayersList.append(snap.key)
+        self.ref.child("groups").child(gamePin!).child("users").child("Host").setValue(true)
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        let managedContent = appDelegate.persistentContainer.viewContext
+        if let entity = NSEntityDescription.entity(forEntityName: "User", in: managedContent) {
+            let currentUser = NSManagedObject(entity: entity, insertInto: managedContent)
+            currentUser.setValue("Host", forKey: "name")
+            currentUser.setValue(gamePin!, forKey: "code")
+            do {
+                try managedContent.save()
+                print("saved \(currentUser)")
+            } catch {
+                print("Could not save")
             }
-            
+        }
+        
+        //WATCH FOR CHILDREN ADDED
+        self.ref.child("groups").child(gamePin ?? "").child("users").observe(.childAdded, with: { (snapshot) in
+            print("snapshot key \(snapshot.key) in GroupVC")
+            if !self.currentPlayersList.contains(snapshot.key){
+                self.currentPlayersList.append(snapshot.key)
+                
+                DispatchQueue.main.async {
+                    self.currentPlayerCollectionView.reloadData()
+                }
+            }
+        })
+        
+        //WATCH FOR CHILDREN DELETED
+        self.ref.child("groups").child(gamePin ?? "").child("users").observe(.childRemoved, with: { (snapshot) in
+            print("removing \(snapshot.key) in GroupVC")
+            if let index = self.currentPlayersList.firstIndex(of: snapshot.key){
+                 self.currentPlayersList.remove(at: index)
+            }
+        
             DispatchQueue.main.async {
                 self.currentPlayerCollectionView.reloadData()
             }
@@ -105,21 +137,43 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
                     print(error)
                 }
                 if let restaurantList = restList {
+                    if restaurantList.count == 0 {
+                        DispatchQueue.main.async {
+                            //ALERT THAT NO RESTAURANTS EXIST
+                            let alertController = UIAlertController(title: "No restaurants found for given parameters", message: "Please adjust search parameters", preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "OK", style: .default, handler: {_ in
+                                //SEND BACK TO PREFERENCESVC
+                                self.presentingViewController?.dismiss(animated: true, completion: nil)
+                            })
+                            alertController.addAction(okAction)
+                            self.present(alertController, animated: true, completion: nil)
+                        }
+                    }
                     self.restaurants = restaurantList
+                    let nullImg = UIImage(named: "NullPoster")
+                    var count = 0
                     for rest in self.restaurants {
+                        print("rest #\(count)")
+                        count = count + 1
                         self.ref.child("groups").child(self.gamePin!).child("restaurants").child(rest.id).setValue(true)
                         
                         if let imagePath = rest.image_url{
                             let url = URL(string:imagePath)
                             
-                            let data = try? Data(contentsOf: url!)
-                            let image = UIImage(data: data!)
-                            self.imageCache.append(image!)
-                            print ("image added")
-                            
-                            
+                            if let data = try? Data(contentsOf: url!){
+                                if let image = UIImage(data: data) {
+                                    self.imageCache.append(image)
+                                    print ("image added")
+                                } else {
+                                    self.imageCache.append(nullImg!)
+                                    print("null poster added")
+                                }
+                            } else {
+                                self.imageCache.append(nullImg!)
+                                print("null poster added")
+                            }
                         } else {
-                            self.imageCache.append(UIImage(named: "NullPoster")!)
+                            self.imageCache.append(nullImg!)
                             print("null poster added")
                         }
                             
@@ -140,9 +194,6 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
     @IBAction func addHostName(_ sender: Any) {
         print("CURRENT USERS: \(currentPlayersList)// ADDHOSTNAME()")
         self.name = self.nameTextField.text
-        if self.name == "" {
-            self.name = "Player"
-        }
         addNewName()
         DispatchQueue.main.async {
             self.currentPlayerCollectionView.reloadData()
@@ -181,45 +232,51 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
                 if !self.currentPlayersList.contains(newName){
                     print("Current list: \(self.currentPlayersList)")
                     print(newName)
-                }
-                DispatchQueue.global(qos: .userInitiated).async {
-                    self.ref.child("groups").child(code).child("users").child(oldName).removeValue(completionBlock: { (error, ref) in
-                        print(error ?? "success")
-                    })
                     
-                    self.ref.child("groups").child(code).child("users").child(newName).setValue(true)
-                
-                    DispatchQueue.main.async {
-                        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-                            return
-                        }
-
-                        let managedContent = appDelegate.persistentContainer.viewContext
-                        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "User")
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        self.ref.child("groups").child(code).child("users").child(oldName).removeValue(completionBlock: { (error, ref) in
+                            print(error ?? "success")
+                        })
+                        self.ref.child("groups").child(code).child("users").child(newName).setValue(true)
                         
-                        fetchRequest.predicate = NSPredicate(format: "code = %@", code)
-                
-                        do {
-                            let results = try managedContent.fetch(fetchRequest)
-                            if results.count > 0 {
-                                let object = results[0]
-                                object.setValue(self.name, forKey: "name")
-                                do {
-                                    try managedContent.save()
-                                    self.nameStack.removeFromSuperview()
-                                    self.currentPlayersList.append(self.name ?? "Player")
-                                } catch {
-                                    print("Could not save")
-                                }
+                        DispatchQueue.main.async {
+                            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                                return
                             }
-                        } catch {
-                            print("Could not fetch")
+                            let managedContent = appDelegate.persistentContainer.viewContext
+                            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "User")
+                            fetchRequest.predicate = NSPredicate(format: "code = %@", code)
+                            
+                            do {
+                                let results = try managedContent.fetch(fetchRequest)
+                                if results.count > 0 {
+                                    let object = results[0]
+                                    object.setValue(self.name, forKey: "name")
+                                    do {
+                                        try managedContent.save()
+                                        self.nameStack.removeFromSuperview()
+//                                        self.currentPlayersList.append(self.name ?? "Player")
+                                    } catch {
+                                        print("Could not save")
+                                    }
+                                }
+                            } catch {
+                                print("Could not fetch")
+                            }
                         }
                     }
+                } else {
+                    print("Alert should show up")
+                    let alertController = UIAlertController(title: "Name Already Exists", message: "Please choose another name", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okAction)
+                    self.present(alertController, animated: true, completion: nil)
+                    
+                    self.nameTextField.text = ""
                 }
-            }
-            DispatchQueue.main.async {
-                self.currentPlayerCollectionView.reloadData()
+                DispatchQueue.main.async {
+                    self.currentPlayerCollectionView.reloadData()
+                }
             }
         }
     }

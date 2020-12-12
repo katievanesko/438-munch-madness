@@ -71,9 +71,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         self.startTime = DispatchTime.now()
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             // Check round number
-            
-            let numChoices = self.restaurants.count-1 //set to appropriate value
-//            print("NUM CHOICES is \(numChoices)")
+            let numChoices = self.restaurants.count-1 
             if numChoices > 1 {
                 // Create new BracketViewController
                 let newBracketVC = self.storyboard?.instantiateViewController(withIdentifier: "BracketViewController") as! BracketViewController
@@ -133,21 +131,12 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
                     self.clearVotes()
                     print("next round!")
                     self.present(newBracketVC, animated: false, completion: nil)
-                  
-
                 }) { (error) in
                   print(error.localizedDescription)
               }
-                
-                
-                
-                
             }
             else {
                 // Move to WinnerVC
-                
-                print("winner!")
-                
                 self.ref.child("groups").child(self.gameCode).observeSingleEvent(of: .value, with: { (snapshot) in
                     let winnerVC = self.storyboard?.instantiateViewController(withIdentifier: "WinnerViewController") as! WinnerViewController
 //                    let groupData = snapshot.value as? NSDictionary
@@ -193,6 +182,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
                              winnerVC.passedImage = self.imageCache[1]
                         }
                     }
+                    winnerVC.modalPresentationStyle = .fullScreen
                     self.present(winnerVC, animated: true, completion: nil)
                   }) { (error) in
                     print(error.localizedDescription)
@@ -237,8 +227,9 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
             bottomName.text = restaurants[bottomIndex].name
             bottomRating.text = String(describing: restaurants[bottomIndex].rating)
             bottomCuisine.text! = restaurants[bottomIndex].categories[0].title
-
-            bottomImage.image = imageCache[bottomIndex]
+            print("Restaurant count is \(restaurants.count) and image count is \(imageCache.count)")
+            print(imageCache)
+            bottomImage.image = imageCache[bottomIndex] //GOT ERROR HERE FOR INDEX OUT OF RANGE!!
 //            for cat in restaurants[1].categories {
 //                bottomCuisine.text! += cat.title + " "
 //            }
