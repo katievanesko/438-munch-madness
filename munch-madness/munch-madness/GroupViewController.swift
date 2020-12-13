@@ -33,11 +33,13 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
     
     @IBOutlet weak var nameStack: UIStackView!
     
+    @IBOutlet weak var startBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // when someone hits "Find Restaurants", the user will be redirected to this VC and group will be created
         print("CURRENT USERS: \(currentPlayersList)")
-        
+        startBtn.isEnabled = false
         ref = Database.database().reference()
         nameTextField.delegate = self
         currentPlayerCollectionView.delegate = self
@@ -152,10 +154,9 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
                     }
                     self.restaurants = restaurantList
                     let nullImg = UIImage(named: "NullPoster")
-                    var count = 0
+                    var count = 1
                     for rest in self.restaurants {
-                        print("rest #\(count)")
-                        count = count + 1
+                        print(count)
                         self.ref.child("groups").child(self.gamePin!).child("restaurants").child(rest.id).setValue(true)
                         
                         if let imagePath = rest.image_url{
@@ -177,11 +178,14 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
                             self.imageCache.append(nullImg!)
                             print("null poster added")
                         }
-                        
-// if we try to store all data on firebase, would try here
-//                        self.ref.child("groups").child(self.gamePin!).child("restaurants").child(rest.id).setValue(rest)
+                        if count == restaurantList.count {
+                            DispatchQueue.main.async {
+                                self.startBtn.isEnabled = true
+                            }
+                            
+                        }
+                        count = count + 1
                     }
-
                 }
             }
         }
