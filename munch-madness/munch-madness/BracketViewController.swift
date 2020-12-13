@@ -11,6 +11,10 @@ import Firebase
 
 class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
 
+    @IBOutlet weak var topView: UIView!
+    
+    @IBOutlet weak var bottomView: UIView!
+    
     @IBOutlet weak var topName: UILabel!
     
     @IBOutlet weak var bottomName: UILabel!
@@ -33,7 +37,6 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
     var gameCode: String = ""
     var topIndex: Int = 0
     var bottomIndex: Int = 1
-    var nextIndex: Int = 2
     var imageCache: [UIImage] = []
     var startTime: DispatchTime = DispatchTime.now()
     var bottomStays: Bool = false
@@ -42,8 +45,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
     var currBottomVotes: Int = 0
     var currTopTime: Double = 0.0
     var currBottomTime: Double = 0.0
-
-    //add radius/distance and price
+    var swiped = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,51 +59,61 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(completeSwipe))
         rightSwipe.direction = .right
         rightSwipe.delegate = self
-        self.view.addGestureRecognizer(rightSwipe)
+        bottomView.isUserInteractionEnabled = true
+        self.bottomView.addGestureRecognizer(rightSwipe)
         
         let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(completeSwipe))
         leftSwipe.direction = .left
         leftSwipe.delegate = self
-        self.view.addGestureRecognizer(leftSwipe)
+        topView.isUserInteractionEnabled = true
+        self.topView.addGestureRecognizer(leftSwipe)
         
         // fillInRestaurants()
         fillInInitial()
         watchValues()
-        let seconds = 2.0
+        let seconds = 6.0
         self.startTime = DispatchTime.now()
-        print("restaurant \(self.restaurants)")
-        print("image cache \(self.imageCache)")
+//        print("restaurant \(self.restaurants)")
+//        print("image cache \(self.imageCache)")
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-            // Check round number
-            let numChoices = self.restaurants.count-1 
-            if numChoices > 1 {
-                // Create new BracketViewController
-                let newBracketVC = self.storyboard?.instantiateViewController(withIdentifier: "BracketViewController") as! BracketViewController
-                
-                self.ref.child("groups").child(self.gameCode).observeSingleEvent(of: .value, with: { (snapshot) in
-                    if self.currTopVotes > self.currBottomVotes{
-                         print("in top wins")
-                         self.restaurants.remove(at: 1)
-                         self.imageCache.remove(at: 1)
-                    } else if self.currTopVotes < self.currBottomVotes {
-                         print("in bottom wins")
-                         self.restaurants.remove(at: 0)
-                         self.imageCache.remove(at: 0)
+           self.play()
+        }
+    }
+    
+    func play() {
+        // Check round number
+        let numChoices = self.restaurants.count-1
+        if numChoices > 1 {
+            // Create new BracketViewController
+            let newBracketVC = self.storyboard?.instantiateViewController(withIdentifier: "BracketViewController") as! BracketViewController
+            
+            self.ref.child("groups").child(self.gameCode).observeSingleEvent(of: .value, with: { (snapshot) in
+//                    let groupData = snapshot.value as? NSDictionary
+                print(snapshot)
+                if self.currTopVotes > self.currBottomVotes{
+                     print("in top wins")
+                    self.restaurants.remove(at: self.bottomIndex)
+                    self.imageCache.remove(at: self.bottomIndex)
+                    self.bottomStays = false
+                } else if self.currTopVotes < self.currBottomVotes {
+                     print("in bottom wins")
+                    self.restaurants.remove(at: self.topIndex)
+                    self.imageCache.remove(at: self.topIndex)
+                    self.bottomStays = true
+               } else {
+                    if self.currTopTime < self.currBottomTime {
+                         print("in top time wins")
+                        self.restaurants.remove(at: self.bottomIndex)
+                        self.imageCache.remove(at: self.bottomIndex)
+                        self.bottomStays = false
+                     } else {
+                         print("in bottom time wins")
+                        self.restaurants.remove(at: self.topIndex)
+                        self.imageCache.remove(at: self.topIndex)
                         self.bottomStays = true
-                   } else {
-                        if self.currTopTime < self.currBottomTime {
-                             print("in top time wins")
-                             print(self.restaurants)
-                             self.restaurants.remove(at: 1)
-                             self.imageCache.remove(at: 1)
-                         } else {
-                             print("in bottom time wins")
-                             
-                             self.restaurants.remove(at: 0)
-                             self.imageCache.remove(at: 0)
-                            self.bottomStays = true
-                         }
                      }
+                 }
 //                  let groupData = snapshot.value as? NSDictionary
 //                  let topCount = groupData?["topVoteCount"] as? Int ?? 0
 //                  let bottomCount = groupData?["bottomVoteCount"] as? Int ?? 0
@@ -128,22 +140,22 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
 //                        }
 //                    }
 //                    print("restaurants after deletion \(self.restaurants)")
-                    newBracketVC.restaurants = self.restaurants
-                    newBracketVC.gameCode = self.gameCode
-                    newBracketVC.userName = self.userName
-                    newBracketVC.imageCache = self.imageCache
-                    newBracketVC.bottomStays = self.bottomStays
-                    self.clearVotes()
-                    print("next round!")
-                    self.present(newBracketVC, animated: false, completion: nil)
-                }) { (error) in
-                  print(error.localizedDescription)
-              }
-            }
-            else {
-                // Move to WinnerVC
-                self.ref.child("groups").child(self.gameCode).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let winnerVC = self.storyboard?.instantiateViewController(withIdentifier: "WinnerViewController") as! WinnerViewController
+                newBracketVC.restaurants = self.restaurants
+                newBracketVC.gameCode = self.gameCode
+                newBracketVC.userName = self.userName
+                newBracketVC.imageCache = self.imageCache
+                newBracketVC.bottomStays = self.bottomStays
+                self.clearVotes()
+                print("next round!")
+                self.present(newBracketVC, animated: false, completion: nil)
+            }) { (error) in
+              print(error.localizedDescription)
+          }
+        }
+        else {
+            // Move to WinnerVC
+            self.ref.child("groups").child(self.gameCode).observeSingleEvent(of: .value, with: { (snapshot) in
+                let winnerVC = self.storyboard?.instantiateViewController(withIdentifier: "WinnerViewController") as! WinnerViewController
 //                    let groupData = snapshot.value as? NSDictionary
 //                    let topCount = groupData?["topVoteCount"] as? Int ?? 0
 //                    let bottomCount = groupData?["bottomVoteCount"] as? Int ?? 0
@@ -169,45 +181,48 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
 //                             winnerVC.passedImage = self.imageCache[1]
 //                        }
 //                    }
-                    if self.currTopVotes > self.currBottomVotes{
-                        winnerVC.restaurant = self.restaurants[0]
-                        winnerVC.passedImage = self.imageCache[0]
+                if self.currTopVotes > self.currBottomVotes{
+                    winnerVC.restaurant = self.restaurants[self.topIndex]
+                    winnerVC.passedImage = self.imageCache[self.topIndex]
 
-                    } else if self.currTopVotes < self.currBottomVotes {
-                        winnerVC.restaurant = self.restaurants[1]
-                        winnerVC.passedImage = self.imageCache[1]
-
-
+                } else if self.currTopVotes < self.currBottomVotes {
+                    winnerVC.restaurant = self.restaurants[self.bottomIndex]
+                    winnerVC.passedImage = self.imageCache[self.bottomIndex]
+                } else {
+                    if self.currTopTime < self.currBottomTime {
+                        winnerVC.restaurant = self.restaurants[self.topIndex]
+                        winnerVC.passedImage = self.imageCache[self.topIndex]
                     } else {
-                        if self.currTopTime < self.currBottomTime {
-                            winnerVC.restaurant = self.restaurants[0]
-                            winnerVC.passedImage = self.imageCache[0]
-                        } else {
-                             winnerVC.restaurant = self.restaurants[1]
-                             winnerVC.passedImage = self.imageCache[1]
-                        }
+                        winnerVC.restaurant = self.restaurants[self.bottomIndex]
+                        winnerVC.passedImage = self.imageCache[self.bottomIndex]
                     }
-                    winnerVC.modalPresentationStyle = .fullScreen
-                    self.present(winnerVC, animated: true, completion: nil)
-                  }) { (error) in
-                    print(error.localizedDescription)
                 }
-
+                winnerVC.modalPresentationStyle = .fullScreen
+                self.present(winnerVC, animated: true, completion: nil)
+              }) { (error) in
+                print(error.localizedDescription)
             }
+
         }
     }
+    
     
     @objc func completeSwipe(swipe: UISwipeGestureRecognizer) {
         if swipe.direction == .right {
             print("right swipe")
-//            let selected = UIView()
-//            selected.frame = CGRect(x: self.view.frame.height / 2, y: 0, width: self.view.frame.width, height: self.view.frame.height / 2)
-//            selected.backgroundColor = UIColor.lightGray
-//            self.view.addSubview(selected)
-            voteTransactions(whichRestaurant: "bottom", groupID: gameCode)
+            if !swiped {
+                bottomView.backgroundColor = UIColor.init(named: "GradientTop")
+                swiped = true
+                voteTransactions(whichRestaurant: "bottom", groupID: gameCode)
+            }
         } else if swipe.direction == .left {
             print("left swipe")
-            voteTransactions(whichRestaurant: "top", groupID: gameCode)
+
+            if !swiped {
+                topView.backgroundColor = UIColor.init(named: "GradientTop")
+                swiped = true
+                voteTransactions(whichRestaurant: "top", groupID: gameCode)
+            }
         }
     }
     
@@ -222,11 +237,10 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func fillInInitial(){
         if restaurants.count > 1 {
-            if bottomStays {
-                let temp = bottomIndex
-                bottomIndex = topIndex
-                topIndex = temp
-                bottomStays = false
+            if self.bottomStays {
+                bottomIndex = 0
+                topIndex = 1
+                self.bottomStays = false
             }
             topName.text = restaurants[topIndex].name
             topRating.text = String(describing: restaurants[topIndex].rating)
@@ -243,7 +257,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
             bottomRating.text = String(describing: restaurants[bottomIndex].rating)
             bottomCuisine.text! = restaurants[bottomIndex].categories[0].title
             print("Restaurant count is \(restaurants.count) and image count is \(imageCache.count)")
-            print(imageCache)
+//            print(imageCache)
             bottomImage.image = imageCache[bottomIndex] //GOT ERROR HERE FOR INDEX OUT OF RANGE!!
 //            for cat in restaurants[1].categories {
 //                bottomCuisine.text! += cat.title + " "
@@ -257,7 +271,6 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
     //    from https://firebase.google.com/docs/database/ios/read-and-write
         // Basically takes current state and returns new desired state, said helpful for incrementing counts, especially when multiple users may be voting/tapping at once
     func voteTransactions(whichRestaurant: String, groupID: String){
-        
         let nanoVoteTime = DispatchTime.now().uptimeNanoseconds-self.startTime.uptimeNanoseconds
         let secVoteTime = Double(nanoVoteTime) / 1000000000
         

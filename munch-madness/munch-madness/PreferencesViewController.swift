@@ -147,9 +147,6 @@ class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPicke
                 target.prefPrice = priceInNumbers[ price.selectedSegmentIndex]
                 target.prefRadius=radiusInMeters[radiusPicker.selectedRow(inComponent: 0)]
                 target.prefCuisine = cuisineForURL[cuisinePicker.selectedRow(inComponent: 0)]
-                        
-
-                
             }
         }
     

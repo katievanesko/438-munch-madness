@@ -63,7 +63,8 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
         codeLabel.text = gamePin as String?
         
         self.ref.child("groups").child(gamePin!).child("users").child("Host").setValue(true)
-        
+        self.ref.child("groups").child(gamePin!).child("usersCount").setValue(1)
+
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }

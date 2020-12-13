@@ -64,7 +64,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     print("code in VC \(code)")
                     if snapshot.hasChild(code) {
                         self.ref.child("groups").child(code).child("users").child("putUserNameHere").setValue(true)
-
+                        
+//                        help from https://stackoverflow.com/questions/53028308/how-to-increment-the-value-in-specific-node-with-firebase-realtime-database-ios
+                        let usersCount = self.ref.child("groups").child(code).child("usersCount")
+                        usersCount.observeSingleEvent(of: .value, with: { snapshot in
+                           var addOneUser = snapshot.value as? Int ?? 0
+                           addOneUser += 1
+                           usersCount.setValue(addOneUser)
+                        })
+                        
+                        
                         self.gameCode = code
                         
                         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -118,25 +127,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //            print("\(snapshot.key)-> \(String(describing:snapshot.value))")
 //        })
     }
-    
-    // we should move this to somewhere else--maybe WaitingViewController?
-//    func addUser() -> Bool {
-//        // testing how to add users to an array in the database
-//       // basically creating a set of users for each group - not quite an array, but similar vibe https://stackoverflow.com/questions/39815117/add-an-item-to-a-list-in-firebase-database
-//
-//        var hasChild = false
-//        self.ref.child("groups").observe(.value, with: { (snapshot) in
-//            if let code = self.gameCode {
-//                print("code \(code)")
-//                if snapshot.hasChild(code) {
-//                    hasChild = true
-//                    self.ref.child("groups").child(code).child("users").child("putUserNameHere").setValue(true)
-//                }
-//            }
-//
-//        })
-//        return hasChild
-//    }
     
 
     
