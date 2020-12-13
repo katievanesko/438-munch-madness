@@ -11,6 +11,8 @@ import Firebase
 
 class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
 
+    @IBOutlet weak var timer: UILabel!
+    
     @IBOutlet weak var topView: UIView!
     
     @IBOutlet weak var bottomView: UIView!
@@ -46,9 +48,11 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
     var currTopTime: Double = 0.0
     var currBottomTime: Double = 0.0
     var swiped = false
+    var timerSeconds: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         ref = Database.database().reference()
 
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
@@ -73,12 +77,27 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         watchValues()
         let seconds = 6.0
         self.startTime = DispatchTime.now()
+        timerSeconds = Int(seconds)
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(updateTimer)), userInfo: nil, repeats: true)
+        
 //        print("restaurant \(self.restaurants)")
 //        print("image cache \(self.imageCache)")
         
+//        self.ref.child("groups").child(self.gameCode).observe(.value, with: { (snapshot) in
+//            let groupData = snapshot.value as? NSDictionary
+//            let usersCount = groupData?["usersCount"] as? Int ?? -1
+//            if usersCount == (self.currTopVotes + self.currBottomVotes) {
+//                self.play()
+//            }
+//        })
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
            self.play()
         }
+    }
+    
+    @objc func updateTimer() {
+        timerSeconds -= 1
+        timer.text = "\(timerSeconds)"
     }
     
     func play() {
