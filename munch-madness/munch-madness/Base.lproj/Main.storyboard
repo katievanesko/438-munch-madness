@@ -515,7 +515,6 @@
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ED2-VC-YKC">
-<<<<<<< HEAD
                                         <rect key="frame" x="142.33333333333334" y="243.99999999999997" width="94.333333333333343" height="59.666666666666657"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zez-SP-Nl5">
@@ -542,33 +541,13 @@
                                                         </attributes>
                                                     </fragment>
                                                 </attributedString>
-=======
-                                        <rect key="frame" x="15" y="244.00000000000003" width="349" height="60.333333333333343"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Rating A" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zez-SP-Nl5">
-                                                <rect key="frame" x="0.0" y="0.0" width="349" height="27.666666666666668"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cuisine A" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGA-hI-jgE">
-                                                <rect key="frame" x="0.0" y="32.666666666666686" width="349" height="27.666666666666671"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
->>>>>>> d3f60b0d7f6127f27e47d881e3a9b9687b1dcee8
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
-<<<<<<< HEAD
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rns-RG-K2I">
                                         <rect key="frame" x="333.66666666666669" y="301" width="24.333333333333314" height="48"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
-=======
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restaurant A Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AsL-zI-PxY">
-                                        <rect key="frame" x="20" y="13" width="339.66666666666669" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
->>>>>>> d3f60b0d7f6127f27e47d881e3a9b9687b1dcee8
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -580,11 +559,7 @@
                                     <constraint firstItem="uGT-7N-bhL" firstAttribute="leading" secondItem="R3N-eo-3mV" secondAttribute="leading" constant="2" id="BNL-HX-L71"/>
                                     <constraint firstItem="sKR-hJ-XC2" firstAttribute="leading" secondItem="R3N-eo-3mV" secondAttribute="leading" constant="52" id="HsC-bg-SMi"/>
                                     <constraint firstItem="sKR-hJ-XC2" firstAttribute="top" secondItem="AsL-zI-PxY" secondAttribute="bottom" constant="13" id="KqM-y9-oOu"/>
-<<<<<<< HEAD
                                     <constraint firstAttribute="trailing" secondItem="rns-RG-K2I" secondAttribute="trailing" constant="175.66666666666657" id="Ufq-TZ-saJ"/>
-=======
-                                    <constraint firstAttribute="trailing" secondItem="AsL-zI-PxY" secondAttribute="trailing" constant="15" id="LYf-LZ-JLE"/>
->>>>>>> d3f60b0d7f6127f27e47d881e3a9b9687b1dcee8
                                     <constraint firstItem="ED2-VC-YKC" firstAttribute="top" secondItem="sKR-hJ-XC2" secondAttribute="bottom" constant="11.000000000000028" id="XH9-G8-RAS"/>
                                     <constraint firstItem="ED2-VC-YKC" firstAttribute="leading" secondItem="R3N-eo-3mV" secondAttribute="leading" constant="15" id="dC3-iL-AIt"/>
                                     <constraint firstItem="AsL-zI-PxY" firstAttribute="leading" secondItem="R3N-eo-3mV" secondAttribute="leading" constant="20" symbolic="YES" id="dJj-ty-hcZ"/>
