@@ -176,11 +176,11 @@ class GroupViewController: UIViewController, UITextFieldDelegate, UICollectionVi
                             self.imageCache.append(nullImg!)
                             print("null poster added")
                         }
-                            
                         
 // if we try to store all data on firebase, would try here
 //                        self.ref.child("groups").child(self.gamePin!).child("restaurants").child(rest.id).setValue(rest)
                     }
+
                 }
             }
         }

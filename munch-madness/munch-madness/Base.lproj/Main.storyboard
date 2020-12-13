@@ -529,7 +529,7 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ED2-VC-YKC">
-                                <rect key="frame" x="15" y="238.99999999999997" width="345" height="60.333333333333343"/>
+                                <rect key="frame" x="15" y="239.00000000000003" width="345" height="60.333333333333343"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Rating A" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zez-SP-Nl5">
                                         <rect key="frame" x="0.0" y="0.0" width="345" height="27.666666666666668"/>

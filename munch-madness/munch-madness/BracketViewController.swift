@@ -70,6 +70,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         let seconds = 2.0
         self.startTime = DispatchTime.now()
         print("restaurant \(self.restaurants)")
+        print("image cache \(self.imageCache)")
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             // Check round number
             let numChoices = self.restaurants.count-1 
@@ -199,6 +200,10 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
     @objc func completeSwipe(swipe: UISwipeGestureRecognizer) {
         if swipe.direction == .right {
             print("right swipe")
+//            let selected = UIView()
+//            selected.frame = CGRect(x: self.view.frame.height / 2, y: 0, width: self.view.frame.width, height: self.view.frame.height / 2)
+//            selected.backgroundColor = UIColor.lightGray
+//            self.view.addSubview(selected)
             voteTransactions(whichRestaurant: "bottom", groupID: gameCode)
         } else if swipe.direction == .left {
             print("left swipe")
@@ -217,11 +222,12 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func fillInInitial(){
         if restaurants.count > 1 {
-//            if bottomStays {
-//                topIndex = 1
-//                bottomIndex = 0
-//                bottomStays = false
-//            }
+            if bottomStays {
+                let temp = bottomIndex
+                bottomIndex = topIndex
+                topIndex = temp
+                bottomStays = false
+            }
             topName.text = restaurants[topIndex].name
             topRating.text = String(describing: restaurants[topIndex].rating)
             topCuisine.text! = restaurants[topIndex].categories[0].title
