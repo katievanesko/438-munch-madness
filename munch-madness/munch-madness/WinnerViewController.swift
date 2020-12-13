@@ -41,7 +41,7 @@ class WinnerViewController: UIViewController {
         super.viewDidLoad()
         name.text = restaurant?.name
         cuisine.text = restaurant?.categories[0].title
-        rating.text = String(describing: restaurant?.rating)
+        rating.text = String(describing: (restaurant?.rating)!)
         address.text = restaurant?.location.address1
         price.text = restaurant?.price
         image.image = passedImage
