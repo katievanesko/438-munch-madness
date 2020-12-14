@@ -1059,18 +1059,18 @@
                                 <rect key="frame" x="30" y="255.33333333333337" width="310" height="246.66666666666663"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Yv-fm-KR0">
-                                        <rect key="frame" x="30.666666666666671" y="0.0" width="248.66666666666663" height="71"/>
+                                        <rect key="frame" x="42" y="0.0" width="226" height="71"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Waiting for host to start...">
                                                 <attributes>
-                                                    <font key="NSFont" size="22" name="SourceSansPro-Black"/>
+                                                    <font key="NSFont" size="20" name="SourceSansPro-Black"/>
                                                     <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                 </attributes>
                                             </fragment>
                                         </attributedString>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="vyr-kv-3Te">
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="vyr-kv-3Te">
                                         <rect key="frame" x="145" y="135.99999999999997" width="20" height="20"/>
                                     </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="751" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Vm-Wf-dab">
