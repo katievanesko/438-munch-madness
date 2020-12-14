@@ -16,7 +16,6 @@ class WebViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(self.url)
         // Do any additional setup after loading the view.
         
         webView.load(NSURLRequest(url: NSURL(string: url ?? "")! as URL) as URLRequest)  //Update "" to redirect to error page or something 

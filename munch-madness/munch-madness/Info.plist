@@ -63,6 +63,7 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
+		<string>SourceSansPro-Regular.ttf</string>
 		<string>SourceSansPro-Black.ttf</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>

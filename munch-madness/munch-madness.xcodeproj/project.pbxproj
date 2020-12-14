@@ -19,7 +19,8 @@
 		2968C7BB25731A300009FEA4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2968C7BA25731A300009FEA4 /* WebViewController.swift */; };
 		2974CD08257AFDFF00A171F0 /* PlayerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974CD06257AFDFF00A171F0 /* PlayerCollectionViewCell.swift */; };
 		2974CD09257AFDFF00A171F0 /* PlayerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2974CD07257AFDFF00A171F0 /* PlayerCollectionViewCell.xib */; };
-		78977F3C2586CF27005B2D13 /* SourceSansPro-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78977F3B2586CF1A005B2D13 /* SourceSansPro-Black.ttf */; };
+		78977F422586FC8B005B2D13 /* SourceSansPro-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78977F412586FC8B005B2D13 /* SourceSansPro-Black.ttf */; };
+		78977F442586FC9D005B2D13 /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78977F432586FC9D005B2D13 /* SourceSansPro-Regular.ttf */; };
 		789B568A256A262D00BDB9DA /* BracketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B5689256A262D00BDB9DA /* BracketViewController.swift */; };
 		789B568C256F1FFF00BDB9DA /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B568B256F1FFF00BDB9DA /* GroupViewController.swift */; };
 		789B568E256F2CF000BDB9DA /* WaitingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789B568D256F2CF000BDB9DA /* WaitingViewController.swift */; };
@@ -46,7 +47,8 @@
 		2974CD06257AFDFF00A171F0 /* PlayerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCell.swift; sourceTree = "<group>"; };
 		2974CD07257AFDFF00A171F0 /* PlayerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerCollectionViewCell.xib; sourceTree = "<group>"; };
 		367817EA9D56E89D0CAA2062 /* Pods_munch_madness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_munch_madness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		78977F3B2586CF1A005B2D13 /* SourceSansPro-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SourceSansPro-Black.ttf"; path = "../../Source_Sans_Pro/SourceSansPro-Black.ttf"; sourceTree = "<group>"; };
+		78977F412586FC8B005B2D13 /* SourceSansPro-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SourceSansPro-Black.ttf"; path = "../../Source_Sans_Pro/SourceSansPro-Black.ttf"; sourceTree = "<group>"; };
+		78977F432586FC9D005B2D13 /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SourceSansPro-Regular.ttf"; path = "../../Source_Sans_Pro/SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
 		789B5689256A262D00BDB9DA /* BracketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketViewController.swift; sourceTree = "<group>"; };
 		789B568B256F1FFF00BDB9DA /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
 		789B568D256F2CF000BDB9DA /* WaitingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingViewController.swift; sourceTree = "<group>"; };
@@ -100,8 +102,9 @@
 		29193BC72563209C00D2E44A /* munch-madness */ = {
 			isa = PBXGroup;
 			children = (
+				78977F412586FC8B005B2D13 /* SourceSansPro-Black.ttf */,
+				78977F432586FC9D005B2D13 /* SourceSansPro-Regular.ttf */,
 				789B56922573251D00BDB9DA /* FetchRestaurantData.swift */,
-				78977F3B2586CF1A005B2D13 /* SourceSansPro-Black.ttf */,
 				789B56912573251D00BDB9DA /* Restaurant.swift */,
 				29193BC82563209C00D2E44A /* AppDelegate.swift */,
 				7F8452322565F45100A9CAAA /* GoogleService-Info.plist */,
@@ -196,8 +199,9 @@
 				29193BE3256355AA00D2E44A /* Main.storyboard in Resources */,
 				2974CD09257AFDFF00A171F0 /* PlayerCollectionViewCell.xib in Resources */,
 				7F8452332565F45100A9CAAA /* GoogleService-Info.plist in Resources */,
+				78977F442586FC9D005B2D13 /* SourceSansPro-Regular.ttf in Resources */,
 				29193BD82563209D00D2E44A /* LaunchScreen.storyboard in Resources */,
-				78977F3C2586CF27005B2D13 /* SourceSansPro-Black.ttf in Resources */,
+				78977F422586FC8B005B2D13 /* SourceSansPro-Black.ttf in Resources */,
 				29193BD52563209D00D2E44A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
