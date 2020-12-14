@@ -7,3 +7,5 @@ Munch Madness is a gamified way to help a group or individual decide where to ea
 Now, the users will all see the same page comparing two restaurants with an image and restaurant details. Each user will have up to 5 seconds to swipe left to vote for the top restaurant or left to vote for the bottom restaurant. Whichever restaurant has the most votes will stay and the other will be replaced with a new restaurant until the overall winner is chosen. 
 
 Once the winner page has been presented, users will see the winning restaurant and all of its details. There is a call button from which anyone can call the restaurant (only works on real phone not in simulator) or visit the Yelp page for the restaurant. Users can also return to the start page if they want to play again.
+
+Note: If running on actual device, you may need to press "return" or swipe down on the VC for the keyboard to go away on the join and preferences pages.
