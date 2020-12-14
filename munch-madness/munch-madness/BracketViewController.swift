@@ -80,16 +80,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         timerSeconds = Int(seconds)
         Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(updateTimer)), userInfo: nil, repeats: true)
         
-//        print("restaurant \(self.restaurants)")
-//        print("image cache \(self.imageCache)")
-        
-//        self.ref.child("groups").child(self.gameCode).observe(.value, with: { (snapshot) in
-//            let groupData = snapshot.value as? NSDictionary
-//            let usersCount = groupData?["usersCount"] as? Int ?? -1
-//            if usersCount == (self.currTopVotes + self.currBottomVotes) {
-//                self.play()
-//            }
-//        })
+
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
            self.play()
         }
@@ -133,32 +124,8 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
                         self.bottomStays = true
                      }
                  }
-//                  let groupData = snapshot.value as? NSDictionary
-//                  let topCount = groupData?["topVoteCount"] as? Int ?? 0
-//                  let bottomCount = groupData?["bottomVoteCount"] as? Int ?? 0
-//                  let topTime = groupData?["topVoteTime"] as? Double ?? 0
-//                  let bottomTime = groupData?["bottomVoteTime"] as? Double ?? 0
-//                  if topCount > bottomCount{
-//                    print("in top wins")
-//                    self.restaurants.remove(at: 1)
-//                    self.imageCache.remove(at: 1)
-//                  } else if topCount < bottomCount {
-//                    print("in bottom wins")
-//                    self.restaurants.remove(at: 0)
-//                    self.imageCache.remove(at: 0)
-//                  } else {
-//                        if topTime < bottomTime {
-//                            print("in top time wins")
-//                            print(self.restaurants)
-//                            self.restaurants.remove(at: 1)
-//                            self.imageCache.remove(at: 1)
-//                        } else {
-//                            print("in bottom time wins")
-//                            self.restaurants.remove(at: 0)
-//                            self.imageCache.remove(at: 0)
-//                        }
-//                    }
-//                    print("restaurants after deletion \(self.restaurants)")
+
+
                 newBracketVC.restaurants = self.restaurants
                 newBracketVC.gameCode = self.gameCode
                 newBracketVC.userName = self.userName
@@ -175,31 +142,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
             // Move to WinnerVC
             self.ref.child("groups").child(self.gameCode).observeSingleEvent(of: .value, with: { (snapshot) in
                 let winnerVC = self.storyboard?.instantiateViewController(withIdentifier: "WinnerViewController") as! WinnerViewController
-//                    let groupData = snapshot.value as? NSDictionary
-//                    let topCount = groupData?["topVoteCount"] as? Int ?? 0
-//                    let bottomCount = groupData?["bottomVoteCount"] as? Int ?? 0
-//                    let topTime = groupData?["topVoteTime"] as? Double ?? 0
-//                    let bottomTime = groupData?["bottomVoteTime"] as? Double ?? 0
-//                    print("num of rests = \(self.restaurants.count)")
-//                    print("self rest 1 = \(self.restaurants[1])")
-//                    if topCount > bottomCount{
-//                        winnerVC.restaurant = self.restaurants[0]
-//                        winnerVC.passedImage = self.imageCache[0]
-//
-//                    } else if topCount < bottomCount {
-//                        winnerVC.restaurant = self.restaurants[1]
-//                        winnerVC.passedImage = self.imageCache[1]
-//
-//
-//                    } else {
-//                        if topTime < bottomTime {
-//                            winnerVC.restaurant = self.restaurants[0]
-//                            winnerVC.passedImage = self.imageCache[0]
-//                        } else {
-//                             winnerVC.restaurant = self.restaurants[1]
-//                             winnerVC.passedImage = self.imageCache[1]
-//                        }
-//                    }
+
                 if self.currTopVotes > self.currBottomVotes{
                     winnerVC.restaurant = self.restaurants[self.topIndex]
                     winnerVC.passedImage = self.imageCache[self.topIndex]
@@ -267,21 +210,12 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
             topImage.image = imageCache[topIndex]
 
             
-            //can have multiple categories, so may want to consider a way to append more than one!
-//            for cat in restaurants[0].categories {
-//                topCuisine.text! += cat.title + " "
-//            }
+
             
             bottomName.text = restaurants[bottomIndex].name
             bottomRating.text = String(describing: restaurants[bottomIndex].rating)
             bottomCuisine.text! = restaurants[bottomIndex].categories[0].title
-            print("Restaurant count is \(restaurants.count) and image count is \(imageCache.count)")
-//            print(imageCache)
-            bottomImage.image = imageCache[bottomIndex] //GOT ERROR HERE FOR INDEX OUT OF RANGE!!
-//            for cat in restaurants[1].categories {
-//                bottomCuisine.text! += cat.title + " "
-//            }
-           
+            bottomImage.image = imageCache[bottomIndex]
             
         }
     }
@@ -296,7 +230,6 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
             let voteRef = ref.child("groups").child(groupID)
             voteRef.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
               if var post = currentData.value as? [String : AnyObject]
-    //          , let uid = Auth.auth().currentUser?.uid
               {
                 var votes: Dictionary<String, Bool>
                 votes = post["votes"] as? [String : Bool] ?? [:]
@@ -309,11 +242,8 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
                     voteCount = post["bottomVoteCount"] as? Int ?? 0
                     voteTime = post["bottomVoteTime"] as? Double ?? 0
                 }
-//                var voteCount = post["voteCount"] as? Int ?? 0
                 if let _ = votes[self.userName] {
-//                  // Unstar the post and remove self from stars
-//                    voteCount -= 1
-//                    votes.removeValue(forKey: self.userName)
+//
                     // DON'T do anything if the user is already there - ie can't re-vote
                     return TransactionResult.success(withValue: currentData)
                 } else {
@@ -329,7 +259,6 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
                     post["bottomVoteCount"] = voteCount as AnyObject?
                     post["bottomVoteTime"] = voteTime as AnyObject?
                 }
-//                post["voteCount"] = voteCount as AnyObject?
                 post["votes"] = votes as AnyObject?
 
                 // Set value and report transaction success
@@ -345,22 +274,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
             }
         }
     
-//    func checkVotes() -> Bool {
-//        var result = true
-//        self.ref.child("groups").child(self.gameCode).observeSingleEvent(of: .value, with: { (snapshot) in
-//            let groupData = snapshot.value as? NSDictionary
-//            let topCount = groupData?["topVoteCount"] as? Int ?? 0
-//            let bottomCount = groupData?["bottomVoteCount"] as? Int ?? 0
-//
-//            if topCount > bottomCount{
-//                result = false
-//            }
-//
-//          }) { (error) in
-//            print(error.localizedDescription)
-//        }
-//        return result
-//    }
+
     func watchValues() {
         self.ref.child("groups").child(self.gameCode).observe(.value, with: { (snapshot) in
             let groupData = snapshot.value as? NSDictionary
@@ -390,8 +304,7 @@ class BracketViewController: UIViewController, UIGestureRecognizerDelegate {
         })
     }
     func clearVotes() {
-        print("IN CLEAR VOTES")
-//        let post = ["topVoteCount": nil, "bottomVoteCount": nil, "votes": nil] as [String : Any?]
+        
         let childUpdates = ["/groups/\(self.gameCode)/topVoteCount": nil,
                             "/groups/\(self.gameCode)/bottomVoteCount": nil, "/groups/\(self.gameCode)/votes": nil, "/groups/\(self.gameCode)/topVoteTime": nil,"/groups/\(self.gameCode)/bottomVoteTime": nil] as [String : Any?]
         self.ref.updateChildValues(childUpdates as [AnyHashable : Any])

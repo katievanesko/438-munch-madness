@@ -16,11 +16,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     var ref: DatabaseReference!
 
-//    var gamePin: NSString?
     var userName: String = ""
 
     var gameCode: String?
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var joinCodeField: UITextField!
     
     @IBOutlet weak var img: UIImageView!
@@ -29,31 +29,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.joinCodeField.delegate = self
         ref = Database.database().reference()
-        watchGroupData()
-//        let apikey = "UG6WNfp3Lfp2qjXsx57mt7nFVQvUFlBJ3srqmm5JswKRZA14fQXtSc_EW73pa-n7DSmBehNHRBQtdFjKzODYG1OblRtN86hCCis6Q4-5ljCRM51uGyQ2GPMQMvG6X3Yx"
-//        let baseURL = "https://api.yelp.com/v3/businesses/Bc0odaNt6wsRPzRQQ63QEw"
-//        let url = URL(string : baseURL)
-//        var request = URLRequest(url: url!)
-//        request.setValue("Bearer \(apikey)", forHTTPHeaderField: "Authorization")
-//        request.httpMethod = "GET"
-//        URLSession.shared.dataTask(with: request) { (data, response, error) in
-//            if let error = error{
-//                print(error)
-//
-//            }
-//            print(data ?? "no data")
-//            print(response ?? "response")
-//        }.resume()
-        
-//        addUser()
-//        voteTransactions(groupID: gameCode!)
-        // addUser()
+
     }
     
     @IBAction func joinFieldChanged(_ sender: Any) {
         gameCode = joinCodeField.text
     }
     
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        joinCodeField.resignFirstResponder()
+        return true
+    }
     // testing how to add users to an array in the database
     // basically creating a set of users for each group - not quite an array, but similar vibe https://stackoverflow.com/questions/39815117/add-an-item-to-a-list-in-firebase-database
     @IBAction func joinGroupBtn(_ sender: Any) {

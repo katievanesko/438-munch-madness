@@ -261,18 +261,6 @@ class WaitingViewController: UIViewController, UITextFieldDelegate, UICollection
         return ("guest_" + (randomString as String)) as String
     }
     
-    // MARK: - Navigation
 
-//    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        // Get the new view controller using segue.destination.
-//        // Pass the selected object to the new view controller.
-//        if let target = segue.destination as? BracketViewController {
-//            target.restaurants = self.restaurants
-//
-//            guard let gc = self.gameCode else { return }
-//            target.gameCode = gc
-//        }
-//    }
     
 }

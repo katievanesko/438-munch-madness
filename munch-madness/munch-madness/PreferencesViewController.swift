@@ -12,7 +12,8 @@ import FirebaseDatabase
 import MapKit
 import CoreLocation
 
-class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, CLLocationManagerDelegate{
+class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
+    CLLocationManagerDelegate{
     
     
     @IBOutlet weak var cuisinePicker: UIPickerView!
@@ -52,6 +53,7 @@ class PreferencesViewController: UIViewController, UIPickerViewDelegate, UIPicke
   
         radiusPicker.dataSource = self
         radiusPicker.delegate = self
+        
         ref = Database.database().reference()
 
         getLocation()
